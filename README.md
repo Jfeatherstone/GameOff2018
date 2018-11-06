@@ -5,6 +5,8 @@ The idea for now is a 2D platformer where the player can switch between two char
 both of which will be need to be used to complete levels. At the moment, there will hopefully be enemies, but we'll see as
 the game progresses.
 
+The game is being written in C++17, using SFML as the framework for basic window/sound/etc. functions.
+
 All art will be original and created on my piskel account linked below!
 
 [Piskel link!](https://www.piskelapp.com/user/4977014434955264)

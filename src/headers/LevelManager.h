@@ -20,7 +20,7 @@ As of now, the options (that I'm considering) are:
   We could use a map with all of the levels stored as values, while the key is
   some string which represents the levels "location" relative to others. This would
   be something like "0 0 0" where "0 0 1" would be to the right and "0 0 -1" would
-  be to the left of something
+  be to the left or something
 >> linkedlist
   We could create a type of linkedlist that allows for the next and previous levels
   to be directly intertwined with the level itself. The downside to this is that it
