@@ -8,3 +8,5 @@ the game progresses.
 All art will be original and created on my piskel account linked below!
 
 [Piskel link!](https://www.piskelapp.com/user/4977014434955264)
+
+I'll do my best to upload screenshots once the game is in a state where it actually runs :/

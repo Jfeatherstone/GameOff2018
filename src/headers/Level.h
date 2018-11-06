@@ -10,8 +10,6 @@ there's going to be doors on certain walls which will be indicated by a special
 tile. To the user, this tile will be transparent, so it looks like there's nothing
 there, but upon collision, the player will move to a new area.
 
-TODO:
-figure out how to link the levels together in the code, so the player can backtrack if they need to
 */
 class Level {
 private:
