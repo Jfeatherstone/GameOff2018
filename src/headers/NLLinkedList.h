@@ -1,12 +1,15 @@
 #pragma once
 #include <map>
+#include <SFML/Graphics.hpp>
+
 using namespace std;
+using namespace sf;
 
 /*
 Since our non-linear linked list will have values which are related to each
 other based on diretions, not just binary values
 */
-enum class Direction {LEFT, RIGHT, UP, DOWN};
+enum class Direction {LEFT, RIGHT, UP, DOWN, IN, OUT};
 
 /*
 The basis of our class will be a map<string, T>, where the string will be an
@@ -27,11 +30,12 @@ private:
   // We also need to keep track to the current string key
   string currentKey;
 
-  // This will return the x and y integers for the key
+  // This will return the x, y, and z integers for the key
   int* separateKey();
+
   // This will recompile the key with new int values, after they have
   // been modified
-  string formKey(int x, int y);
+  string formKey(int x, int y, int z);
 
 public:
   // Our constructor which will be provided the origin node
