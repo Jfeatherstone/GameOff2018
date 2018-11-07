@@ -37,13 +37,25 @@ private:
   // been modified
   string formKey(int x, int y, int z);
 
+  // Our original key, the value "0 0 0"
+  const string ORIGIN_KEY = "0 0 0";
+
 public:
   // Our constructor which will be provided the origin node
-  NLLinkedList(T originNode);
-  T gotoNode(T node);
-  T gotoOrigin();
-  T get(Direction direction);
-  T getCurrent();
-  void add(T newNode, Direction direction);
-  void setOrigin(T newOrigin);
+  NLLinkedList(T originNode); // Done
+
+  // Getting methods
+  bool gotoNode(T node); // Done
+  T getOrigin(); // Done
+  T get(Direction direction); // Done
+  T getCurrent(); // Done
+
+  // Adding methods
+  void add(T newNode, Direction direction); // Done
+  void setOrigin(T newOrigin); // Done
+  bool replace(T oldNode, T newNode); // Done
+
+  // Management methods
+  void reset(); // Done
+  void reset(T newOrigin); // Done
 };
