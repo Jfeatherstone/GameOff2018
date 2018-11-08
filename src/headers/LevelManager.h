@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Level.h"
+#include "NLLinkedList.h"
 
 using namespace sf;
 using namespace std;
@@ -39,7 +40,7 @@ private:
   // the directory and read in their data
   // Since we don't quite know how to store levels, this will stay commented out
   // for now at least
-  //parseLevels(const string levelFolderPath);
+  NLLinkedList<Level> parseLevels(const string levelFolderPath);
 
   // Just for extra abstraction, we will make a method that reads individual levels
   Level parseLevel(const string filePath);

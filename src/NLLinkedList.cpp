@@ -117,8 +117,17 @@ T NLLinkedList<T>::get(Direction direction) {
   // We can now create our tenative new key and see if there is a value
   string tenativeKey = formKey(key[0] + dx, key[1] + dy, key[2] + dz);
 
+  // Don't want to have excess memory being used
+  delete[] key;
+
   // Now we plug this into our map to find out if there is a proper value there
-  if (llMap[tenativeKey] != T()) {
+  // This may seem like the stupidest if statement ever written, but there is
+  // an actual reason as to why I didn't being a decent human being and just use
+  // the != operator. Since we will mainly be using lists with the Level class,
+  // which having been defined by us, does not automatically have == and !=
+  // defined, by using only the == operator, we avoid having to define != operator
+  // in the first place. :)
+  if (!(llMap[tenativeKey] == T())) {
     currentKey = tenativeKey;
     currentNode = llMap[currentKey];
     return currentNode;
@@ -253,6 +262,7 @@ void NLLinkedList<T>::add(T node, Direction direction) {
     currentKey = formKey(key[0] + dx, key[1] + dy, key[2] + dz);
     llMap[currentKey] = node;
     currentNode = node;
+    delete[] key;
 
 }
 /***** END VALUE GETTING METHODS *****/
@@ -300,4 +310,4 @@ how to fix this is by defining template classes below for the types we want
 In this case, we only need this class for levels, so we define that below
 */
 
-//template class NLLinkedList<Level>;
+template class NLLinkedList<Level>;

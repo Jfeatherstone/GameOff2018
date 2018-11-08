@@ -26,9 +26,18 @@ private:
 
 public:
   Level(Sprite background, Texture tileSheet, VertexArray vArray);
+
+  // We will never call this constructor for making our game, but it is used as
+  // a control in the NLLinkedList class so we can compare values easily
+  Level();
+
   static Level loadLevel(const string levelFilePath);
 
   // Some getters for drawing the level
   VertexArray getVertexArray();
   Texture getTileSheet();
+
+  // We have to override the == operator because the NLLinkedlist class uses it
+  // to identify whether two levels are the same
+  inline bool operator==(const Level compare);
 };
