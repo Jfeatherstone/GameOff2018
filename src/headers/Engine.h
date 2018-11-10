@@ -7,9 +7,6 @@ using namespace sf;
 
 class Engine {
 private:
-  const int TILE_SIZE = 25;
-  const int VERTS_IN_QUAD = 4;
-
   // TODO: have the player accelerate as they fall
   const int GRAVITY = 300;
 
@@ -35,7 +32,7 @@ private:
   float m_playerSwitchCooldown = 2;
   // And a tracker for how long it's been
   float m_timeSinceSwitch;
-  
+
   // Our current level
   Level m_currentLevel;
 
