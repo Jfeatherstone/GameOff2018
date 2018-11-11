@@ -2,6 +2,7 @@
 #include <fstream>
 #include <list>
 #include <cmath>
+#include <iostream>
 
 using namespace std;
 
@@ -100,9 +101,12 @@ Level* Level::loadLevel(const string levelFilePath) {
     }
 
     // Now we create our int array, and populate it
+    // TODO: This may create a memory leak because of the array initialization
     char arr[levelSize.x][levelSize.y];
+
     int x = 0;
     int y = 0;
+    cout << "Before" << endl;
     for (string s: levelData) {
       for (char c: s) {
         arr[x][y] = c;
@@ -111,6 +115,7 @@ Level* Level::loadLevel(const string levelFilePath) {
       x = 0;
       y++;
     }
+    cout << "After" << endl;
 
     // We now set up our vertex array variable
     vArray.setPrimitiveType(Quads);
@@ -151,7 +156,10 @@ Level* Level::loadLevel(const string levelFilePath) {
         // Once our starting location is set, we can setup our textures
         Texture backgroundTexture = TextureHolder::getTexture(background);
 
-        return new Level(levelSize, startingLocation, backgroundTexture, tileSheet, vArray, location, arr);
+        // We also have to reformat our level array
+        char** array = arr[0][0];
+
+        return new Level(levelSize, startingLocation, backgroundTexture, tileSheet, vArray, location, array);
       }
     }
   }

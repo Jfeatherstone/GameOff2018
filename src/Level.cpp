@@ -35,8 +35,8 @@ First we want to assign our member variables to their new values
 Level::Level(Vector2i levelSize, Vector2f startingLocation, Texture background,
    string tileSheet, VertexArray vArray, string mapLocation, char** arr):
  m_background(background), m_tileSheetPath(tileSheet), m_levelSize(levelSize),
-m_startingLocation(startingLocation), m_vertexArray(vArray), m_levelArray(arr),
-  m_mapLocation(mapLocation) {
+m_startingLocation(startingLocation), m_vertexArray(vArray), m_levelArray(),
+ m_mapLocation(mapLocation) {
 
 }
 
@@ -71,10 +71,4 @@ void Level::printLevel() {
   cout << m_mapLocation << endl;
   cout << "Starting location: " << m_startingLocation.x << ", " << m_startingLocation.y << ")" << endl;
   cout << m_levelSize.x << " " << m_levelSize.y << endl;
-  for (int y = 0; y < m_levelSize.y; y++) {
-    for (int x = 0; x < m_levelSize.x; x++) {
-      cout << m_levelArray[y][x];
-    }
-    cout << endl;
-  }
 }
