@@ -1,5 +1,6 @@
 #include "headers/Level.h"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 using namespace sf;
 
@@ -22,7 +23,7 @@ Since this constructor is only used for comparing, we can leave most things
 undefined, as it won't ever be used
 */
 Level::Level() {
-  *m_levelArray = new int[1];
+  *m_levelArray = new char[1];
 }
 
 /*
@@ -31,8 +32,11 @@ loadLevel()
 
 First we want to assign our member variables to their new values
 */
-Level::Level(Sprite background, Texture tileSheet, VertexArray vArray):
-m_background(background), m_tileSheet(tileSheet), m_vertexArray(vArray) {
+Level::Level(Vector2i levelSize, Vector2f startingLocation, Texture background,
+   string tileSheet, VertexArray vArray, string mapLocation, char** arr):
+ m_background(background), m_tileSheetPath(tileSheet), m_levelSize(levelSize),
+m_startingLocation(startingLocation), m_vertexArray(vArray), m_levelArray(arr),
+  m_mapLocation(mapLocation) {
 
 }
 
@@ -51,10 +55,26 @@ VertexArray Level::getVertexArray() {
   return m_vertexArray;
 }
 
-int** Level::getLevelArray() {
+char** Level::getLevelArray() {
   return m_levelArray;
 }
 
-Texture Level::getTileSheet() {
-  return m_tileSheet;
+string Level::getTileSheetPath() {
+  return m_tileSheetPath;
+}
+
+string Level::getMapLocation() {
+  return m_mapLocation;
+}
+
+void Level::printLevel() {
+  cout << m_mapLocation << endl;
+  cout << "Starting location: " << m_startingLocation.x << ", " << m_startingLocation.y << ")" << endl;
+  cout << m_levelSize.x << " " << m_levelSize.y << endl;
+  for (int y = 0; y < m_levelSize.y; y++) {
+    for (int x = 0; x < m_levelSize.x; x++) {
+      cout << m_levelArray[y][x];
+    }
+    cout << endl;
+  }
 }

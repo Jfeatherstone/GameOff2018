@@ -1,37 +1,24 @@
 #include "headers/TextureHolder.h"
+#include <iostream>
 
-// Include the assert feature
-#include <assert.h>
+map<string, Texture> TextureHolder::m_textures = map<string, Texture>();
 
-TextureHolder* TextureHolder::m_s_instance = nullptr;
+Texture& TextureHolder::getTexture(string const& fileName) {
 
-TextureHolder::TextureHolder() {
-  // Make sure that the instance of the TextureHolder class doesn't exist
-  assert(m_s_instance == nullptr);
-  // Now assign the texture class to this instance
-  // This makes sure that there is always only one instance at any given time
-  m_s_instance = this;
-}
-
-sf::Texture& TextureHolder::getTexture(std::string const& fileName) {
-  // Get a reference to m_textures using m_s_instance
-  auto& m = m_s_instance->m_textures;
-  // auto is used as shorthand for map<string, Texture> here
-
-  // Create an interator to roll through key-value pairs in our map
-  auto keyValuePair = m.find(fileName);
-  // auto is used as shorthand for map<string, Texture>::iterator
-
-  if (keyValuePair != m.end()) {
-    // Assuming we found something
-    // We now return the text
-    return keyValuePair->second;
-  } else {
-    // If there is no entry for this texture file, we should make one
-    auto& texture = m[fileName];
-    texture.loadFromFile(fileName);
-
-    // Return our new texture
-    return texture;
+  // First, we look through the map to see if there is an entry already
+  for (auto element: TextureHolder::m_textures) {
+    if (element.first == fileName) {
+      Texture& texture = TextureHolder::m_textures[element.first];
+      return texture;
+    }
   }
+  // If the code has made it to this point, we assume the value isn't in our map
+
+  // If there is no entry for this texture file, we should make one
+  Texture texture;
+  texture.loadFromFile(fileName);
+  TextureHolder::m_textures[fileName] = texture;
+
+  Texture& ref = TextureHolder::m_textures[fileName];
+  return ref;
 }

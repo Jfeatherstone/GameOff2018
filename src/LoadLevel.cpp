@@ -5,6 +5,8 @@
 
 using namespace std;
 
+float strToFloat(string s);
+
 // Our definitions for the reading of the level file
 const string START_X = "start_x";
 const string START_Y = "start_y";
@@ -12,7 +14,7 @@ const string LOCATION = "location";
 const string TILE_SHEET = "tile_sheet";
 const string BACKGROUND = "background";
 
-Level Level::loadLevel(const string levelFilePath) {
+Level* Level::loadLevel(const string levelFilePath) {
   // We first want to open the file we're looking at
   fstream file(levelFilePath);
   string line;
@@ -33,8 +35,10 @@ Level Level::loadLevel(const string levelFilePath) {
     // If it is, we ignore it
     if (line.substr(0, 1) != "#") {
       // Next up, we want to see if the line denotes the start of our level map
-      if (line == "<level>")
+      if (line == "<level>") {
         readingLevel = !readingLevel;
+        continue;
+      }
 
       // If we are currently reading the level, we add the values to a special list
       if (readingLevel) {
@@ -81,6 +85,8 @@ Level Level::loadLevel(const string levelFilePath) {
       }
     }
   }
+
+  file.close();
 
   Vector2i levelSize;
   VertexArray vArray;
@@ -140,10 +146,21 @@ Level Level::loadLevel(const string levelFilePath) {
     if (startX.length() > 0 && startY.length() > 0) {
       startingLocation.x = strToFloat(startX);
       startingLocation.y = strToFloat(startY);
+
+      if (background.length() > 0 && tileSheet.length() > 0) {
+        // Once our starting location is set, we can setup our textures
+        Texture backgroundTexture = TextureHolder::getTexture(background);
+
+        return new Level(levelSize, startingLocation, backgroundTexture, tileSheet, vArray, location, arr);
+      }
     }
   }
+  return new Level();
 }
 
+/*
+This is just for converting values read in from the text file
+*/
 float strToFloat(string s) {
   float value = 0;
   int multiplier = s.length() - 1;

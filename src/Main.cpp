@@ -2,11 +2,14 @@
 // g++ -o Main src/*.cpp -lsfml-system -lsfml-window -lsfml-graphics -lsfml-sound
 
 #include "headers/Engine.h"
+#include <iostream>
 
 int main() {
-  Engine engine;
+  //Engine engine;
+  //engine.run();
+  Level level = *Level::loadLevel("levels/level1.txt");
 
-  engine.run();
+  level.printLevel();
 
   return 0;
 }
