@@ -23,7 +23,8 @@ Since this constructor is only used for comparing, we can leave most things
 undefined, as it won't ever be used
 */
 Level::Level() {
-  *m_levelArray = new char[1];
+  //cout << "Level constructor" << endl;
+  m_levelArray = new char*[1];
 }
 
 /*
@@ -31,11 +32,12 @@ Here is our actual constructor, which will be called in the static method
 loadLevel()
 
 First we want to assign our member variables to their new values
+Besides this, there isn't really much to do here
 */
-Level::Level(Vector2i levelSize, Vector2f startingLocation, Texture background,
+Level::Level(Vector2i levelSize, map<Direction, Vector2f> startingLocation, Texture background,
    string tileSheet, VertexArray vArray, string mapLocation, char** arr):
  m_background(background), m_tileSheetPath(tileSheet), m_levelSize(levelSize),
-m_startingLocation(startingLocation), m_vertexArray(vArray), m_levelArray(),
+m_startingLocation(startingLocation), m_vertexArray(vArray), m_levelArray(arr),
  m_mapLocation(mapLocation) {
 
 }
@@ -67,8 +69,23 @@ string Level::getMapLocation() {
   return m_mapLocation;
 }
 
+Vector2f Level::getStartingLocation(Direction dir) {
+  return m_startingLocation[dir];
+}
+
 void Level::printLevel() {
-  cout << m_mapLocation << endl;
-  cout << "Starting location: " << m_startingLocation.x << ", " << m_startingLocation.y << ")" << endl;
-  cout << m_levelSize.x << " " << m_levelSize.y << endl;
+  cout << endl << "Map location: " << m_mapLocation << endl;
+  cout << "Starting Locations: " << endl;
+  for (auto element: m_startingLocation) {
+    // The DIRECTION_NAMES array is found in NLLinkedList.h
+    cout << DIRECTION_NAMES[element.first] << " (" << element.second.x << ", " << element.second.y << ")" << endl;
+  }
+  cout << "Level size: (" << m_levelSize.x << ", " << m_levelSize.y << ")" << endl;
+  for (int y = 0; y < m_levelSize.y; y++) {
+    for (int x = 0; x < m_levelSize.x; x++) {
+      cout << m_levelArray[y][x];
+    }
+    cout << endl;
+  }
+  cout << endl;
 }

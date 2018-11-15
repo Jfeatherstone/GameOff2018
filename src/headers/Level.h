@@ -1,9 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "TextureHolder.h"
+#include "NLLinkedList.h"
 
 using namespace sf;
 using namespace std;
+
 /*
 You won't be able to fall out of the map, since the
 flying would neglect the effect anyway. As far as entrances to levels and whatnot,
@@ -28,7 +30,10 @@ private:
   Vector2i m_levelSize;
 
   // Where the player starts
-  Vector2f m_startingLocation;
+  // Since there may be more than one entrance to the level, we need to create a
+  // vector for each direction
+  // It's ok that some of these won't be defined
+  map<Direction, Vector2f> m_startingLocation;
 
   // We will manage the tiles in the level through a vertex array
   VertexArray m_vertexArray;
@@ -38,19 +43,20 @@ private:
   string m_mapLocation;
 
 public:
-  Level(Vector2i levelSize, Vector2f startingLocation, Texture background,
-     string tileSheetPath, VertexArray vArray, string mapLocation, char** arr);
+  Level(Vector2i levelSize, map<Direction, Vector2f> startingLocation, Texture background,
+     string tileSheetPath, VertexArray vArray, string mapLocation,
+     char** arr);
 
   // We will never call this constructor for making our game, but it is used as
   // a control in the NLLinkedList class so we can compare values easily
   Level();
 
-  static Level* loadLevel(const string levelFilePath);
+  static Level loadLevel(const string levelFilePath);
 
   // Some getters for drawing the level
   VertexArray getVertexArray(); // Done
   string getTileSheetPath(); // Done
-  Vector2f getStartingLocation();
+  Vector2f getStartingLocation(Direction dir);
   string getMapLocation();
 
   // We have to override the == operator because the NLLinkedlist class uses it

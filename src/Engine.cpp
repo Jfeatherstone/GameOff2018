@@ -6,6 +6,7 @@ using namespace sf;
 Engine::Engine() {
   // Fisrt, we setup our window to be the right dimensions, fetching them from
   // the data about the screen
+  cout << "Before" << endl;
   Vector2f resolution;
   resolution.x = VideoMode::getDesktopMode().width / 1.5;
   resolution.y = VideoMode::getDesktopMode().height / 1.5;
@@ -17,6 +18,7 @@ Engine::Engine() {
   m_HUDView.setSize(resolution);
   m_menuView.setSize(resolution);
   m_BGView.setSize(resolution);
+
 }
 
 void Engine::run() {
@@ -32,4 +34,11 @@ void Engine::run() {
     update(dt.asSeconds());
     draw();
   }
+}
+
+void Engine::loadLevels() {
+  string folderPath = "levels/";
+  //for (auto& file: fs::directory_iterator(folderPath)) {
+    //cout << file << endl;
+  //}
 }

@@ -4,13 +4,17 @@
 
 using namespace std;
 using namespace sf;
-
 /*
 Since our non-linear linked list will have values which are related to each
 other based on diretions, not just binary values
-*/
-enum class Direction {LEFT, RIGHT, UP, DOWN, IN, OUT};
 
+The none state should never be used within this class, but will be used in the
+game loop, to determine when we need a new level
+
+We also want to define an array of strings to be able to print out the enums
+*/
+enum Direction {NONE = 0, LEFT, RIGHT, UP, DOWN, IN, OUT};
+static const string DIRECTION_NAMES[] = {"None", "Left", "Right", "Up", "Down", "In", "Out"};
 /*
 The basis of our class will be a map<string, T>, where the string will be an
 indicator of the node's relationship between surrounding nodes
@@ -43,6 +47,7 @@ private:
 public:
   // Our constructor which will be provided the origin node
   NLLinkedList(T originNode); // Done
+  NLLinkedList();
 
   // Getting methods
   bool gotoNode(T node); // Done
@@ -58,4 +63,6 @@ public:
   // Management methods
   void reset(); // Done
   void reset(T newOrigin); // Done
+
+  // This is so we can print out enums
 };

@@ -2,8 +2,12 @@
 #include <SFML/Graphics.hpp>
 #include "TextureHolder.h"
 #include "Level.h"
+#include "NLLinkedList.h"
+#include <experimental/filesystem>
+#include <iostream>
 
 using namespace sf;
+namespace fs = std::experimental::filesystem;
 
 class Engine {
 private:
@@ -35,13 +39,25 @@ private:
 
   // Our current level
   Level m_currentLevel;
+  // And all of our levels, in our custom NLLinkedList class
+  NLLinkedList<Level> m_levels;
+  // We also need to keep track of where to put the player based on where
+  // they enter a level from
+  map<Level, map<Direction, Vector2f>> m_levelStartingPositions;
+  // Both of these variables above will be initialized in loadLevels();
+
+  // Whether or not we need a new level, along with the direction to go
+  // This will be set to the value of NONE if we don't need to change levels
+  Direction m_directionToMove;
 
   // Our abstracted functions
   // These are defined in their own files according to their name
   void input();
   void draw();
   void update(float elapsedTime);
-  void loadLevel();
+  // This function, not to be confused with loadLevel, loads all levels in the
+  // levels/ folder, and initializes a few variables above
+  void loadLevels();
 
 public:
   Engine();

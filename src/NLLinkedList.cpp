@@ -1,6 +1,7 @@
 #include "headers/NLLinkedList.h"
 #include "headers/Level.h"
 #include <sstream>
+#include <iostream>
 
 using namespace std;
 
@@ -24,6 +25,18 @@ NLLinkedList<T>::NLLinkedList(T originNode) {
   llMap[currentKey] = origin;
 }
 
+template <class T>
+NLLinkedList<T>::NLLinkedList() {
+  T originNode = T();
+  origin = originNode;
+  currentNode = origin;
+
+  // We now place the origin node at the 0 0 0 position in our map
+  currentKey = ORIGIN_KEY;
+  llMap[currentKey] = origin;
+
+  //cout << "No arg constructor" << endl;
+}
 /*
 Similar to the previous constructor, this method will set the origin node
 equal to a new value, but leave the rest of the values the same. This will also
@@ -111,6 +124,9 @@ T NLLinkedList<T>::get(Direction direction) {
       break;
     case Direction::OUT:
       dz = 1;
+      break;
+    case Direction::NONE:
+      // Do nothing here
       break;
   }
 
@@ -257,6 +273,9 @@ void NLLinkedList<T>::add(T node, Direction direction) {
       case Direction::OUT:
         dz = 1;
         break;
+      case Direction::NONE:
+        // Do nothing here
+        break;
     }
 
     currentKey = formKey(key[0] + dx, key[1] + dy, key[2] + dz);
@@ -311,3 +330,4 @@ In this case, we only need this class for levels, so we define that below
 */
 
 template class NLLinkedList<Level>;
+template class NLLinkedList<string>;
