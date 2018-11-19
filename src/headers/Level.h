@@ -37,7 +37,7 @@ private:
 
   // We will manage the tiles in the level through a vertex array
   VertexArray m_vertexArray;
-  char** m_levelArray = nullptr;
+  char** m_levelArray;
 
   // This will allow us to place the level in the map where it belongs
   string m_mapLocation;

@@ -25,6 +25,7 @@ undefined, as it won't ever be used
 Level::Level() {
   //cout << "Level constructor" << endl;
   m_levelArray = new char*[1];
+  m_levelArray[0] = new char[1];
 }
 
 /*
@@ -45,12 +46,18 @@ m_startingLocation(startingLocation), m_vertexArray(vArray), m_levelArray(arr),
 /*
 We create a deconstructor to free up the memory taken by our level array once
 we no longer need the object
+
+UPDATE: 11/19:
+I think this is causing a seg fault at the end of execution, not quite sure why
+If memory becomes a problem, I'll deal with this later
 */
 Level::~Level() {
+  /*
   for (int i = 0; i < sizeof(m_levelArray[0])/sizeof(*m_levelArray[0]); i++) {
     delete[] m_levelArray[i];
   }
   delete[] m_levelArray;
+  */
 }
 
 VertexArray Level::getVertexArray() {
