@@ -6,7 +6,6 @@ using namespace sf;
 Engine::Engine() {
   // Fisrt, we setup our window to be the right dimensions, fetching them from
   // the data about the screen
-  cout << "Before" << endl;
   Vector2f resolution;
   resolution.x = VideoMode::getDesktopMode().width / 1.5;
   resolution.y = VideoMode::getDesktopMode().height / 1.5;
@@ -19,6 +18,7 @@ Engine::Engine() {
   m_menuView.setSize(resolution);
   m_BGView.setSize(resolution);
 
+  loadLevels();
 }
 
 void Engine::run() {
@@ -37,8 +37,19 @@ void Engine::run() {
 }
 
 void Engine::loadLevels() {
-  string folderPath = "levels/";
-  //for (auto& file: fs::directory_iterator(folderPath)) {
-    //cout << file << endl;
-  //}
+  string folderPath = "levels";
+  int numFiles = 0;
+  // First we find out how many files we have
+  for (auto& file: fs::directory_iterator(folderPath)) {
+    numFiles++;
+    stringstream ss;
+    ss << file;
+    // The substring nonsense is to remove the quotes at the beg and end of the str
+    Level level = Level::loadLevel(ss.str().substr(1, ss.str().length() - 2));
+    //level.printLevel();
+    // Add our level to the list
+    m_levels.addAt(level, level.getMapLocation());
+  }
+  m_currentLevel = m_levels.getOrigin();
+  m_directionToMove = Direction::NONE;
 }

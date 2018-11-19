@@ -57,6 +57,7 @@ public:
 
   // Adding methods
   void add(T newNode, Direction direction); // Done
+  void addAt(T newNode, string location);
   void setOrigin(T newOrigin); // Done
   bool replace(T oldNode, T newNode); // Done
 

@@ -15,6 +15,9 @@ void Engine::update(float elapsedTime) {
 
       m_currentLevel = m_levels.get(m_directionToMove);
 
+      // We now update the player's location
+      Vector2f newPosition = m_currentLevel.getStartingLocation(m_directionToMove);
+
       // Now we reset our direction so we don't repeatedly move
       m_directionToMove = Direction::NONE;
     }

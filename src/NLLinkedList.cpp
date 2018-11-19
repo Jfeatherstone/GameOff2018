@@ -284,6 +284,13 @@ void NLLinkedList<T>::add(T node, Direction direction) {
     delete[] key;
 
 }
+
+template <class T>
+void NLLinkedList<T>::addAt(T newNode, string location) {
+  currentKey = location;
+  llMap[currentKey] = newNode;
+  currentNode = newNode;
+}
 /***** END VALUE GETTING METHODS *****/
 
 

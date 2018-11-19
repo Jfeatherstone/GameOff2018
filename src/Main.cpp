@@ -1,19 +1,16 @@
 // Our compile command using g++:
-// g++ -o Main src/*.cpp -lsfml-system -lsfml-window -lsfml-graphics
+// g++ -std=c++17 -o Main src/*.cpp -lsfml-system -lsfml-window -lsfml-graphics -lstdc++fs
 
 #include "headers/Engine.h"
 #include <iostream>
-//#include <SFML/Graphics.hpp>
-#include "headers/NLLinkedList.h"
 
 using namespace std;
 
 
 int main() {
-  cout << "Before method" << endl;
-  //Engine engine;
+  Engine engine;
   //engine.run();
-
+  /*
   cout << "Before level" << endl;
   cout << "After level" << endl;
   Level loaded = Level::loadLevel("levels/level1.txt");
@@ -24,7 +21,7 @@ int main() {
   list.setOrigin(loaded);
   cout << "after list" << endl;
   list.getOrigin().printLevel();
-  
+  */
   cout << "Done!" << endl;
   return 0;
 }

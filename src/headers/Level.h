@@ -33,6 +33,10 @@ private:
   // Since there may be more than one entrance to the level, we need to create a
   // vector for each direction
   // It's ok that some of these won't be defined
+  // It is important to note that the direction corresponding to coordinates will
+  // be "opposite", as the direction implies the direction in the previous level.
+  // ie. RIGHT will hold the coordinates when the player enters from the left,
+  // because the player exited the previous level to the right 
   map<Direction, Vector2f> m_startingLocation;
 
   // We will manage the tiles in the level through a vertex array
@@ -57,6 +61,7 @@ public:
   VertexArray getVertexArray(); // Done
   string getTileSheetPath(); // Done
   Vector2f getStartingLocation(Direction dir);
+  map<Direction, Vector2f> getStartingLocations();
   string getMapLocation();
 
   // We have to override the == operator because the NLLinkedlist class uses it

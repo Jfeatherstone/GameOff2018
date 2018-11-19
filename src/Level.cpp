@@ -17,7 +17,6 @@ bool Level::operator==(Level compare) {
   return false;
 }
 
-
 /*
 Since this constructor is only used for comparing, we can leave most things
 undefined, as it won't ever be used
@@ -78,6 +77,10 @@ string Level::getMapLocation() {
 
 Vector2f Level::getStartingLocation(Direction dir) {
   return m_startingLocation[dir];
+}
+
+map<Direction, Vector2f> Level::getStartingLocations() {
+  return m_startingLocation;
 }
 
 void Level::printLevel() {

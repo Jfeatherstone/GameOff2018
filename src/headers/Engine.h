@@ -3,11 +3,12 @@
 #include "TextureHolder.h"
 #include "Level.h"
 #include "NLLinkedList.h"
-#include <experimental/filesystem>
+#include <filesystem>
 #include <iostream>
+#include <sstream>
 
 using namespace sf;
-namespace fs = std::experimental::filesystem;
+namespace fs = std::filesystem;
 
 class Engine {
 private:
@@ -43,7 +44,12 @@ private:
   NLLinkedList<Level> m_levels;
   // We also need to keep track of where to put the player based on where
   // they enter a level from
-  map<Level, map<Direction, Vector2f>> m_levelStartingPositions;
+  /*
+  UPDATE:
+  We don't actually need this 2d map, because we can just access it from the actual
+  new level that we will be loading
+  */
+  //map<Level, map<Direction, Vector2f>> m_levelStartingPositions;
   // Both of these variables above will be initialized in loadLevels();
 
   // Whether or not we need a new level, along with the direction to go
