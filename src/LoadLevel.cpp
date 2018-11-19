@@ -178,9 +178,8 @@ Level Level::loadLevel(const string levelFilePath) {
 
     if (background.length() > 0 && tileSheet.length() > 0) {
       // Once our starting location is set, we can setup our textures
-      Texture backgroundTexture = TextureHolder::getTexture(background);
 
-      return *(new Level(levelSize, startLocations, backgroundTexture, tileSheet, vArray, location, arr));
+      return *(new Level(levelSize, startLocations, background, tileSheet, vArray, location, arr));
     }
   } else {
     cout << "Invalid level data in file \"" << levelFilePath << "\"!";

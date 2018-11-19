@@ -9,7 +9,7 @@ using namespace std;
 
 int main() {
   Engine engine;
-  //engine.run();
+  engine.run();
   /*
   cout << "Before level" << endl;
   cout << "After level" << endl;

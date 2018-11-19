@@ -22,6 +22,7 @@ private:
 
   // The background sprite for our level
   Sprite m_background;
+  string m_backgroundPath;
 
   // We also have to have a tile sheet for the different blocks in the level
   string m_tileSheetPath;
@@ -36,7 +37,7 @@ private:
   // It is important to note that the direction corresponding to coordinates will
   // be "opposite", as the direction implies the direction in the previous level.
   // ie. RIGHT will hold the coordinates when the player enters from the left,
-  // because the player exited the previous level to the right 
+  // because the player exited the previous level to the right
   map<Direction, Vector2f> m_startingLocation;
 
   // We will manage the tiles in the level through a vertex array
@@ -47,7 +48,7 @@ private:
   string m_mapLocation;
 
 public:
-  Level(Vector2i levelSize, map<Direction, Vector2f> startingLocation, Texture background,
+  Level(Vector2i levelSize, map<Direction, Vector2f> startingLocation, string backgroundPath,
      string tileSheetPath, VertexArray vArray, string mapLocation,
      char** arr);
 
@@ -63,6 +64,7 @@ public:
   Vector2f getStartingLocation(Direction dir);
   map<Direction, Vector2f> getStartingLocations();
   string getMapLocation();
+  Sprite getBackground();
 
   // We have to override the == operator because the NLLinkedlist class uses it
   // to identify whether two levels are the same

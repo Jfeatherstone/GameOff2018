@@ -7,11 +7,14 @@ void Engine::draw() {
 
   /***** BACKGROUND VIEW *****/
   m_window.setView(m_BGView);
+  m_window.draw(m_currentLevel.getBackground());
 
   /***** END BACKGROUND VIEW *****/
 
   /***** MAIN VIEW *****/
   m_window.setView(m_mainView);
+  m_window.draw(m_currentLevel.getVertexArray(),
+   &TextureHolder::getTexture(m_currentLevel.getTileSheetPath()));
 
   /***** END MAIN VIEW *****/
 
@@ -29,5 +32,5 @@ void Engine::draw() {
 }
 
 void drawHUD() {
-  
+
 }

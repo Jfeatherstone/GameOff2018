@@ -290,6 +290,9 @@ void NLLinkedList<T>::addAt(T newNode, string location) {
   currentKey = location;
   llMap[currentKey] = newNode;
   currentNode = newNode;
+  if (location == ORIGIN_KEY) {
+    origin = newNode;
+  }
 }
 /***** END VALUE GETTING METHODS *****/
 

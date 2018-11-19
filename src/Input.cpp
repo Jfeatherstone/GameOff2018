@@ -6,10 +6,11 @@ void Engine::input() {
   if (Keyboard::isKeyPressed(Keyboard::Escape)) {
     m_menuActive = !m_menuActive;
     m_playing = !m_playing;
+    m_window.close();
   }
 
   // Gameplay specific stuff goes in here
   if (m_playing) {
-    
+
   }
 }

@@ -7,8 +7,19 @@ Engine::Engine() {
   // Fisrt, we setup our window to be the right dimensions, fetching them from
   // the data about the screen
   Vector2f resolution;
-  resolution.x = VideoMode::getDesktopMode().width / 1.5;
-  resolution.y = VideoMode::getDesktopMode().height / 1.5;
+
+  // This is probably not the best way to adjust screen size, but it will give
+  // us a consistent set of sizes to work with, as opposed to a ratio which would
+  // be slightly different for every monitor
+  if (VideoMode::getDesktopMode().width >= 1224 && VideoMode::getDesktopMode().height >= 800) {
+    resolution.x = 1024;
+    resolution.y = 600;
+  } else {
+    resolution.x = 640;
+    resolution.y = 480;
+  }
+  m_windowSize.x = resolution.x;
+  m_windowSize.y = resolution.y;
 
   m_window.create(VideoMode(resolution.x, resolution.y), "Github Game Off 2018", Style::Default);
 
@@ -46,7 +57,7 @@ void Engine::loadLevels() {
     ss << file;
     // The substring nonsense is to remove the quotes at the beg and end of the str
     Level level = Level::loadLevel(ss.str().substr(1, ss.str().length() - 2));
-    //level.printLevel();
+    level.printLevel();
     // Add our level to the list
     m_levels.addAt(level, level.getMapLocation());
   }

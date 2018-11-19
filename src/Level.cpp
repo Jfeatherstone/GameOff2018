@@ -34,12 +34,13 @@ loadLevel()
 First we want to assign our member variables to their new values
 Besides this, there isn't really much to do here
 */
-Level::Level(Vector2i levelSize, map<Direction, Vector2f> startingLocation, Texture background,
+Level::Level(Vector2i levelSize, map<Direction, Vector2f> startingLocation, string backgroundPath,
    string tileSheet, VertexArray vArray, string mapLocation, char** arr):
- m_background(background), m_tileSheetPath(tileSheet), m_levelSize(levelSize),
+  m_tileSheetPath(tileSheet), m_levelSize(levelSize),
 m_startingLocation(startingLocation), m_vertexArray(vArray), m_levelArray(arr),
  m_mapLocation(mapLocation) {
-
+   m_backgroundPath = backgroundPath;
+   m_background.setTexture(TextureHolder::getTexture(backgroundPath));
 }
 
 /*
@@ -83,6 +84,10 @@ map<Direction, Vector2f> Level::getStartingLocations() {
   return m_startingLocation;
 }
 
+Sprite Level::getBackground() {
+  return m_background;
+}
+
 void Level::printLevel() {
   cout << endl << "Map location: " << m_mapLocation << endl;
   cout << "Starting Locations: " << endl;
@@ -97,5 +102,7 @@ void Level::printLevel() {
     }
     cout << endl;
   }
+  cout << "Tile Sheet: " << m_tileSheetPath << endl;
+  cout << "Background: " << m_backgroundPath << endl;
   cout << endl;
 }

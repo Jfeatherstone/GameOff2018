@@ -12,6 +12,9 @@ namespace fs = std::filesystem;
 
 class Engine {
 private:
+  // To keep track of the screen size
+  Vector2f m_windowSize;
+
   // TODO: have the player accelerate as they fall
   const int GRAVITY = 300;
 
