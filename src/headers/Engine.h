@@ -1,8 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+
 #include "TextureHolder.h"
 #include "Level.h"
 #include "NLLinkedList.h"
+
+#include "PlayableCharacter.h"
+#include "Human.h"
+#include "Demon.h"
+
 #include <filesystem>
 #include <iostream>
 #include <sstream>
@@ -35,7 +41,15 @@ private:
   bool m_playing = true;
 
   // This will signify whether the player is the first or second character
-  bool m_player1;
+  bool m_isHuman = true;
+  // Our players
+  Human m_human;
+  Demon m_demon;
+
+  // We will need some sprites for our HUD
+  Sprite m_health[4];
+  Sprite m_healthBorder;
+
   // There has to be some cooldown for switching characters
   float m_playerSwitchCooldown = 2;
   // And a tracker for how long it's been

@@ -20,7 +20,13 @@ void Engine::draw() {
 
   /***** HUD VIEW *****/
   m_window.setView(m_HUDView);
-  drawHUD();
+  m_window.draw(m_healthBorder);
+  // Again, human isn't used for any particular reason, as both should always be in sync
+  // We count backwards to make sure the right health are filled in
+  for (int i = m_human.getHealth() - 1; i >= 0; i--)
+    m_window.draw(m_health[i]);
+  //m_window.draw(m_health[0]);
+
   /***** END HUD VIEW *****/
 
   /***** MENU VIEW *****/
@@ -29,8 +35,4 @@ void Engine::draw() {
   /***** END MENU VIEW *****/
 
   m_window.display();
-}
-
-void drawHUD() {
-
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "TextureHolder.h"
 
 using namespace sf;
 using namespace std;
@@ -14,7 +15,7 @@ protected:
   const int m_maxHealth = 4;
 
   // Each character will have a different name
-  string name;
+  string m_name;
 
   /*
   // Probably won't have health regen because of the health system above
@@ -29,7 +30,7 @@ protected:
   // We will also have two different health bars for each character, one of
   // them will be dark and the other light. I'm not sure if there will be
   // a functional difference yet, maybe certain attacks don't damage each one
-  Texture m_healthTexture;
+  string m_healthTexturePath;
 
   // Bools for determining where the player is in respect to the level
   bool m_onGround;
@@ -60,11 +61,14 @@ protected:
   Vector2f m_position;
 
 public:
-  // The update function that will be different for each, which is why its virtual
-  void virtual update(float elapsedTime) = 0;
+  // The handleInput function that will be different for each, which is why its virtual
+  bool virtual handleInput() = 0;
+
+  void update(float elapsedTime);
   void spawn(Vector2f position, int gravity);
+
   // Some basic getters
   Sprite getSprite();
   int getHealth();
-  Texture getHealthTexture();
+  string getHealthTexturePath();
 };
