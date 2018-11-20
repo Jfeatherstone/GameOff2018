@@ -10,7 +10,7 @@ Human::Human() {
 }
 
 bool Human::handleInput(float elapsedTime) {
-  cout << m_startingVelocity << endl;
+  //cout << m_startingVelocity << endl;
   // Handling right movement
   if (Keyboard::isKeyPressed(Keyboard::D)) {
     //cout << m_velocity << endl;

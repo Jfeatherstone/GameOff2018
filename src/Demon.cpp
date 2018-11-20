@@ -10,14 +10,14 @@ Demon::Demon() {
 }
 
 bool Demon::handleInput(float elapsedTime) {
-  cout << m_startingVelocity << endl;
+  //cout << m_startingVelocity << endl;
   // Handling right movement
   if (Keyboard::isKeyPressed(Keyboard::D)) {
     //cout << m_velocity << endl;
     if (m_velocity > 0) {
       m_velocity += m_acceleration * m_startingVelocity * elapsedTime;
       if (m_velocity > m_accelerationCap * m_startingVelocity)
-        m_velocity = m_accelerationCap * m_startingVelocity;
+        m_velocity -= m_accelerationCap * m_startingVelocity * elapsedTime;
 
     } else {
       // We'll accelerate a 5 times the speed if we are turning around
@@ -31,7 +31,7 @@ bool Demon::handleInput(float elapsedTime) {
     if (m_velocity < 0) {
       m_velocity -= m_acceleration * m_startingVelocity * elapsedTime;
       if (m_velocity < - m_accelerationCap * m_startingVelocity)
-        m_velocity = - m_accelerationCap * m_startingVelocity;
+        m_velocity += m_accelerationCap * m_startingVelocity * elapsedTime;
 
     } else {
       m_velocity -= 5 * m_acceleration * m_startingVelocity * elapsedTime;
