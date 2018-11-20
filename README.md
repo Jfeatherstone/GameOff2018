@@ -13,8 +13,11 @@ All art will be original and created on my piskel account linked below!
 
 I'll do my best to upload screenshots once the game is in a state where it actually runs :/
 
+We have a runnable application (and a health bar)!!
+![health_bar](https://raw.githubusercontent.com/Jfeatherstone/GameOff2018/master/screenshots/health_bar.jpg)
+
 
 # What we have so far:
  - A 3 dimensional linked list to organize our levels (NLLinkedList)
- 
+
  - A Level parser that can read in data from level .txt files (LoadLevel & levels/)
