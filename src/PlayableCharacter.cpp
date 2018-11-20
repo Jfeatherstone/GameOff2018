@@ -7,3 +7,7 @@ string PlayableCharacter::getHealthTexturePath() {
 int PlayableCharacter::getHealth() {
   return m_health;
 }
+
+Sprite PlayableCharacter::getSprite() {
+  return m_characterSprite;
+}

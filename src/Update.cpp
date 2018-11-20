@@ -9,6 +9,9 @@ void Engine::update(float elapsedTime) {
   if (m_playing) {
     // TODO: update stuff here
 
+    // We update our current times first
+    m_timeSinceSwitch += elapsedTime;
+
     // First, if we need to fetch a new level, we do so
     if (m_directionToMove != Direction::NONE) {
       // We set the player location, update the current level
