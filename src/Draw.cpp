@@ -19,7 +19,8 @@ void Engine::draw() {
   m_window.setView(m_mainView);
   m_window.draw(m_currentLevel.getVertexArray(),
    &TextureHolder::getTexture(m_currentLevel.getTileSheetPath()));
-
+  //m_window.draw(currentChar);
+  m_window.draw(m_human.getSprite());
   /***** END MAIN VIEW *****/
 
   /***** HUD VIEW *****/

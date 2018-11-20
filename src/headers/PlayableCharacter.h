@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "TextureHolder.h"
+#include <iostream>
 
 using namespace sf;
 using namespace std;
@@ -60,12 +61,20 @@ protected:
   // Our character's location
   Vector2f m_position;
 
+  // We also need a way to keep track of whether our character is moving
+  // Since we want a little bit of acceleration, we use floats instead of booleans
+  float m_velocity = 0;
+  float m_startingVelocity = 300;
+  // Our acceleration, which is 25% each second up to 150%
+  float m_acceleration = 2.f;
+  float m_accelerationCap = 1.5f;
+
 public:
   // The handleInput function that will be different for each, which is why its virtual
-  bool virtual handleInput() = 0;
+  bool virtual handleInput(float elapsedTime) = 0;
 
   void update(float elapsedTime);
-  void spawn(Vector2f position, int gravity);
+  void spawn(Vector2f position);
 
   // Some basic getters
   Sprite getSprite();

@@ -8,7 +8,7 @@ Demon::Demon() {
   m_canFly = true;
 }
 
-bool Demon::handleInput() {
+bool Demon::handleInput(float elapsedTime) {
 
   return false;
 }

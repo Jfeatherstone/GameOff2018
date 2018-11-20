@@ -75,7 +75,7 @@ private:
 
   // Our abstracted functions
   // These are defined in their own files according to their name
-  void input();
+  void input(float elapsedTime);
   void draw();
   void update(float elapsedTime);
   // This function, not to be confused with loadLevel, loads all levels in the

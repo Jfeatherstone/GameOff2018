@@ -4,5 +4,5 @@
 class Human: public PlayableCharacter {
 public:
   Human();
-  bool handleInput();
+  bool handleInput(float elapsedTime);
 };

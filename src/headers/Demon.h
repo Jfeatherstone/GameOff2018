@@ -4,5 +4,5 @@
 class Demon: public PlayableCharacter {
 public:
   Demon();
-  bool handleInput();
+  bool handleInput(float elapsedTime);
 };

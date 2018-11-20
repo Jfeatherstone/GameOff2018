@@ -1,6 +1,6 @@
 #include "headers/Engine.h"
 
-void Engine::input() {
+void Engine::input(float elapsedTime) {
 
   // Accessing the menu
   if (Keyboard::isKeyPressed(Keyboard::Escape)) {
@@ -20,5 +20,9 @@ void Engine::input() {
         m_timeSinceSwitch = 0;
       }
     }
+
+    // We will handle character specific movements in their own classes
+    m_human.handleInput(elapsedTime);
+    m_demon.handleInput(elapsedTime);
   }
 }

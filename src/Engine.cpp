@@ -26,11 +26,11 @@ Engine::Engine() {
   // Setup our views with their proper sizes, which are all the same
   FloatRect reset(0, 0, resolution.x, resolution.y);
   m_mainView.setSize(resolution);
-  //m_mainView.reset(reset);
+  m_mainView.reset(reset);
   m_HUDView.setSize(resolution);
   m_HUDView.reset(reset);
   m_menuView.setSize(resolution);
-  //m_menuView.reset(reset);
+  m_menuView.reset(reset);
   m_BGView.setSize(resolution);
   m_BGView.reset(reset);
 
@@ -62,6 +62,13 @@ Engine::Engine() {
   m_health[3].setScale(-1.5, -1.5);
 
   loadLevels();
+
+  // We now update the player's location
+  Vector2f newPosition = m_currentLevel.getStartingLocation(Direction::RIGHT);
+  // We want to spawn both characters, even if we are only playing one
+  m_human.spawn(newPosition);
+  m_demon.spawn(newPosition);
+
 }
 
 void Engine::run() {
@@ -73,7 +80,7 @@ void Engine::run() {
   while (m_window.isOpen()) {
     dt = clock.restart();
 
-    input();
+    input(dt.asSeconds());
     update(dt.asSeconds());
     draw();
   }
