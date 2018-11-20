@@ -12,8 +12,13 @@ void Engine::update(float elapsedTime) {
     // We update our current times first
     m_timeSinceSwitch += elapsedTime;
 
-    m_human.update(elapsedTime);
-    m_demon.update(elapsedTime);
+    if (m_isHuman) {
+      m_human.update(elapsedTime);
+      m_demon.setPosition(m_human.getSprite().getPosition());
+    } else {
+      m_demon.update(elapsedTime);
+      m_human.setPosition(m_demon.getSprite().getPosition());
+    }
 
     // First, if we need to fetch a new level, we do so
     if (m_directionToMove != Direction::NONE) {

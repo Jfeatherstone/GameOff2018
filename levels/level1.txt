@@ -4,10 +4,10 @@ location=0 0 0
 background=graphics/background.png
 tile_sheet=graphics/tiles_sheet.png
 <level>
-bccccccccccccccccccc
-bbaaaaaaaaaaaadddddd
-bbbaaaaaaaaaaaaaaaaa
-bbbbaaaaaaaaaaaaaaaa
-bbbbbaaaaaaaaaaaaaaa
-bbbbbbaaaaaaaaaaaaaa
+caaaaaaaaaaaaaaaaaaa
+ccaaaaaaaaaaaaaaaaaa
+cccaaaaaaaaaaaaaaaaa
+ccccaaaaaaaaaaaaaaaa
+cccccaaaaaaaaaaaaaaa
+ccccccaaaaaaaaaaaaaa
 <level>

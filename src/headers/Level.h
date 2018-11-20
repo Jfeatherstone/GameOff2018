@@ -17,7 +17,7 @@ there, but upon collision, the player will move to a new area.
 class Level {
 private:
 
-  const static int TILE_SIZE = 25;
+  const static int TILE_SIZE = 50;
   const static int VERTS_IN_QUAD = 4;
 
   // The background sprite for our level

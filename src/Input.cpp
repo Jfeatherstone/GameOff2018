@@ -22,7 +22,9 @@ void Engine::input(float elapsedTime) {
     }
 
     // We will handle character specific movements in their own classes
-    m_human.handleInput(elapsedTime);
-    m_demon.handleInput(elapsedTime);
+    if (m_isHuman)
+      m_human.handleInput(elapsedTime);
+    else
+      m_demon.handleInput(elapsedTime);
   }
 }

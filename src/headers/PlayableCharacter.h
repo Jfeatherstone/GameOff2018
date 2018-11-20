@@ -64,9 +64,9 @@ protected:
   // We also need a way to keep track of whether our character is moving
   // Since we want a little bit of acceleration, we use floats instead of booleans
   float m_velocity = 0;
-  float m_startingVelocity = 300;
-  // Our acceleration, which is 25% each second up to 150%
-  float m_acceleration = 2.f;
+  float m_startingVelocity = 1000;
+  // Our acceleration, which is 350% each second up to 130%
+  float m_acceleration = 3.5f;
   float m_accelerationCap = 1.5f;
 
 public:
@@ -80,4 +80,5 @@ public:
   Sprite getSprite();
   int getHealth();
   string getHealthTexturePath();
+  void setPosition(Vector2f position);
 };

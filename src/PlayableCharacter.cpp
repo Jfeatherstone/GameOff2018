@@ -26,3 +26,9 @@ int PlayableCharacter::getHealth() {
 Sprite PlayableCharacter::getSprite() {
   return m_characterSprite;
 }
+
+void PlayableCharacter::setPosition(Vector2f position) {
+  m_position.x = position.x;
+  m_position.y = position.y;
+  m_characterSprite.setPosition(m_position);
+}
