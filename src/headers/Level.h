@@ -48,7 +48,7 @@ private:
   string m_mapLocation;
 
 public:
-  const static int TILE_SIZE = 50;
+  const static int TILE_SIZE = 36;
 
   Level(Vector2i levelSize, map<Direction, Vector2f> startingLocation, string backgroundPath,
      string tileSheetPath, VertexArray vArray, string mapLocation,

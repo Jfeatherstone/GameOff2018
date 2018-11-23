@@ -1,23 +1,23 @@
 start_location=left, 50, 100
-start_location=right, 500, 100
+start_location=start, 500, 100
 location=0 0 0
 background=graphics/background.png
-tile_sheet=graphics/tiles_sheet.png
+tile_sheet=graphics/tile_sheet_grass.png
 <level>
-caaaaaaaaaaaaaaaaaa
-ccaaaaaaaaaaaaaaaaa
-cccaaaaaaaaaaaaaaaa
-ccccaaaaaaaaaaaaaaa
-cccccaaaaaaaaaaaaaa
-ccccccddddddddddddd
+baaaaaaaaaaaaaaaaaa
+cbaaaaaaaaaaaaaaaaa
+cccbaaaaaaaaaaaaaaa
+ccccbaaaaaaaaaaaaaa
+cccccbaaaaaaaaaaaaa
+cccccccccccccccaaaa
 aaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaac
+aaaaaaaaaaaaaaaaaac
+aaaaaaaaaaaaaaaaaac
 aaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaacccccaa
+aaaccccaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaadddddaa
-aaaddddaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaa
-aaaaaaaaaadddddddaa
+aaaaaaaaaacccccccaa
 <level>

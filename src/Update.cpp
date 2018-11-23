@@ -41,5 +41,19 @@ void Engine::update(float elapsedTime) {
       m_directionToMove = Direction::NONE;
 
     }
+
+    // If our health drops to 0, we restart the entire map
+    if (m_human.getHealth() <= 0) {
+      m_currentLevel = m_levels.getOrigin();
+      Vector2f newPosition = m_currentLevel.getStartingLocation(Direction::START);
+
+      // We want to spawn both characters, even if we are only playing one
+      m_human.spawn(newPosition);
+      m_demon.spawn(newPosition);
+
+      // And pause the game
+      m_human.setHealth(4);
+      m_demon.setHealth(4);
+    }
   }
 }

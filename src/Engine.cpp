@@ -64,7 +64,7 @@ Engine::Engine() {
   loadLevels();
 
   // We now update the player's location
-  Vector2f newPosition = m_currentLevel.getStartingLocation(Direction::RIGHT);
+  Vector2f newPosition = m_currentLevel.getStartingLocation(Direction::START);
   // We want to spawn both characters, even if we are only playing one
   m_human.spawn(newPosition);
   m_demon.spawn(newPosition);
@@ -88,10 +88,8 @@ void Engine::run() {
 
 void Engine::loadLevels() {
   string folderPath = "levels";
-  int numFiles = 0;
   // First we find out how many files we have
   for (auto& file: fs::directory_iterator(folderPath)) {
-    numFiles++;
     stringstream ss;
     ss << file;
     // The substring nonsense is to remove the quotes at the beg and end of the str
@@ -102,15 +100,5 @@ void Engine::loadLevels() {
   }
   m_currentLevel = m_levels.getOrigin();
   m_directionToMove = Direction::NONE;
-
-  if (m_currentLevel.getLevelSize().x * Level::TILE_SIZE > m_windowSize.x
-    && m_currentLevel.getLevelSize().y * Level::TILE_SIZE < m_windowSize.y) {
-      m_mainView.setCenter(m_human.getCenter().x, m_windowSize.y / 2);
-  } else if (m_currentLevel.getLevelSize().x * Level::TILE_SIZE < m_windowSize.x
-    && m_currentLevel.getLevelSize().y * Level::TILE_SIZE > m_windowSize.y) {
-      m_mainView.setCenter(m_windowSize.x / 2, m_human.getCenter().y);
-  } else {
-      m_mainView.setCenter(m_windowSize.x / 2, m_windowSize.y / 2);
-  }
 
 }

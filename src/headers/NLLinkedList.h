@@ -13,8 +13,8 @@ game loop, to determine when we need a new level
 
 We also want to define an array of strings to be able to print out the enums
 */
-enum Direction {NONE = 0, LEFT, RIGHT, UP, DOWN, IN, OUT};
-static const string DIRECTION_NAMES[] = {"None", "Left", "Right", "Up", "Down", "In", "Out"};
+enum Direction {NONE = 0, LEFT, RIGHT, UP, DOWN, IN, OUT, START};
+static const string DIRECTION_NAMES[] = {"None", "Left", "Right", "Up", "Down", "In", "Out", "Start"};
 /*
 The basis of our class will be a map<string, T>, where the string will be an
 indicator of the node's relationship between surrounding nodes

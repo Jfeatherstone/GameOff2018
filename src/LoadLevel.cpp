@@ -239,6 +239,8 @@ Direction valueOfDirection(string value) {
     return Direction::IN;
   if (value == "out")
     return Direction::OUT;
+  if (value == "start")
+    return Direction::START;
 
   return Direction::NONE;
 }

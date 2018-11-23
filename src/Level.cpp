@@ -117,7 +117,7 @@ void Level::detectCollision(PlayableCharacter &character) {
 
   // These are the blocks that will stop a player
   char solidBlocks[] = {'b', 'c', 'd'};
-
+  bool onGround = false;
   for (int y = start.y; y < end.y; y++) {
     for (int x = start.x; x < end.x; x++) {
       // Assign our block variable
@@ -134,15 +134,15 @@ void Level::detectCollision(PlayableCharacter &character) {
         character.setInAir(false);
         character.setJumping(false);
         character.setFalling(false);
+        onGround = true;
         // If we are the demon, we also want to subtract health
         if (character.canFly())
           character.takeDamage(1);
-      } else {
-        character.setInAir(true);
       }
 
       if (contains(solidBlocks, m_levelArray[y][x])
-      && character.getHeadHitbox().intersects(block)) {
+      && character.getHeadHitbox().intersects(block)
+      && character.getVelocity().y <= 0) {
         // Stop the player in the y direction only
         character.setVelocity(Vector2f(character.getVelocity().x, 0));
         // Also indicate that they are no longer in the air
@@ -150,7 +150,7 @@ void Level::detectCollision(PlayableCharacter &character) {
         character.setJumping(false);
         character.setFalling(true);
         if (character.canFly())
-          character.takeDamage(1);        
+          character.takeDamage(1);
       }
 
       if (contains(solidBlocks, m_levelArray[y][x])
@@ -169,6 +169,8 @@ void Level::detectCollision(PlayableCharacter &character) {
 
     }
   }
+  if (!onGround)
+    character.setInAir(true);
 }
 
 VertexArray Level::getVertexArray() {

@@ -12,6 +12,7 @@ void PlayableCharacter::spawn(Vector2f position) {
 
 void PlayableCharacter::update(float elapsedTime) {
 
+  cout << m_falling << " " << m_jumping << " " << m_inAir << endl;
   // Update our damage cooldown
   m_timeSinceDamage += elapsedTime;
 
@@ -22,6 +23,7 @@ void PlayableCharacter::update(float elapsedTime) {
   // Keep track of our jump time and when its over
   if (m_jumping) {
     m_currentJumpTime += elapsedTime;
+    //cout << m_currentJumpTime << endl;
     if (m_currentJumpTime >= m_jumpDuration) {
       m_jumping = false;
       m_velocity.y = 0;
@@ -38,25 +40,25 @@ void PlayableCharacter::update(float elapsedTime) {
   FloatRect r = getPosition();
   // The extra numbers are to provide a slight padding on the sprite
 
-  m_feetHitbox.left = r.left;
-  m_feetHitbox.width = r.width;
-  m_feetHitbox.top = r.top + r.height - 8;
-  m_feetHitbox.height = 8;
+  m_feetHitbox.left = r.left + 7;
+  m_feetHitbox.width = r.width - 14;
+  m_feetHitbox.top = r.top + r.height - 4;
+  m_feetHitbox.height = 4;
 
-  m_headHitbox.left = r.left + 5;
-  m_headHitbox.width = r.width - 10;
+  m_headHitbox.left = r.left + 6;
+  m_headHitbox.width = r.width - 12;
   m_headHitbox.top = r.top + 1;
   m_headHitbox.height = 20;
 
   m_leftArmHitbox.left = r.left + 2;
-  m_leftArmHitbox.width = 6;
+  m_leftArmHitbox.width = 2;
   m_leftArmHitbox.top = r.top + 28;
-  m_leftArmHitbox.height = 38;
+  m_leftArmHitbox.height = 36;
 
-  m_rightArmHitbox.left = r.left + r.width - 8;
-  m_rightArmHitbox.width = 6;
+  m_rightArmHitbox.left = r.left + r.width - 4;
+  m_rightArmHitbox.width = 2;
   m_rightArmHitbox.top = r.top + 28;
-  m_rightArmHitbox.height = 38;
+  m_rightArmHitbox.height = 36;
 }
 
 string PlayableCharacter::getHealthTexturePath() {
