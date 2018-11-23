@@ -10,13 +10,26 @@ void PlayableCharacter::spawn(Vector2f position) {
 
 void PlayableCharacter::update(float elapsedTime) {
 
+  // Update our damage cooldown
+  m_timeSinceDamage += elapsedTime;
+
   // Apply gravity acceleration
-  m_velocity.y += - (m_velocity.y - m_terminalVelocity) * elapsedTime * m_gravityAcceleration;
+  if (m_inAir)
+    m_velocity.y += - (m_velocity.y - m_terminalVelocity) * elapsedTime * m_gravityAcceleration;
+
+  // Keep track of our jump time and when its over
+  if (m_jumping) {
+    m_currentJumpTime += elapsedTime;
+    if (m_currentJumpTime >= m_jumpDuration) {
+      m_jumping = false;
+      m_velocity.y = 0;
+    }
+  }
 
   // Move our character
   m_position.x += m_velocity.x * elapsedTime;
   m_position.y += m_velocity.y * elapsedTime;
-  cout << m_position.x << " " << m_position.y << endl;
+  //cout << m_velocity.x << " " << m_velocity.y << endl;
   m_characterSprite.setPosition(m_position);
 
   // We now want to update our hitboxes
@@ -62,8 +75,60 @@ void PlayableCharacter::setPosition(Vector2f position) {
   m_characterSprite.setPosition(m_position);
 }
 
+void PlayableCharacter::setVelocity(Vector2f velocity) {
+  m_velocity.x = velocity.x;
+  m_velocity.y = velocity.y;
+}
+
+Vector2f PlayableCharacter::getVelocity() {
+  return m_velocity;
+}
+
 FloatRect PlayableCharacter::getPosition() {
   return m_characterSprite.getGlobalBounds();
+}
+
+FloatRect PlayableCharacter::getFeetHitbox() {
+  return m_feetHitbox;
+}
+
+FloatRect PlayableCharacter::getHeadHitbox() {
+  return m_headHitbox;
+}
+
+FloatRect PlayableCharacter::getLeftArmHitbox() {
+  return m_leftArmHitbox;
+}
+
+FloatRect PlayableCharacter::getRightArmHitbox() {
+  return m_rightArmHitbox;
+}
+
+void PlayableCharacter::setInAir(bool inAir) {
+  m_inAir = inAir;
+}
+
+void PlayableCharacter::setJumping(bool jumping) {
+  m_jumping = jumping;
+}
+
+void PlayableCharacter::setFalling(bool falling) {
+  m_falling = falling;
+}
+
+bool PlayableCharacter::canFly() {
+  return m_canFly;
+}
+
+void PlayableCharacter::takeDamage(int amount) {
+  if (m_timeSinceDamage > m_damageCooldown) {
+    m_health -= amount;
+    m_timeSinceDamage = 0;
+  }
+}
+
+void PlayableCharacter::incrementHealth(int increment) {
+  m_health += increment;
 }
 
 RectangleShape PlayableCharacter::feetHitboxDrawable() {

@@ -34,9 +34,9 @@ protected:
   string m_healthTexturePath;
 
   // Bools for determining where the player is in respect to the level
-  bool m_onGround;
-  bool m_inAir;
+  bool m_inAir = true;
   bool m_jumping;
+  bool m_falling;
 
   // To differentiate our characters, we are going to use the variable canFly
   bool m_canFly;
@@ -46,8 +46,12 @@ protected:
   // The jump duration of the character. For our first character, this will
   // be how long their jump is from the ground, and for the second character, this
   // is how long their flying movement is.
-  float m_jumpDuration;
+  float m_jumpDuration = .15f;
   float m_currentJumpTime;
+
+  // We don't want the player to get hit with several ticks of damage in successsion
+  float m_timeSinceDamage;
+  float m_damageCooldown = 1.5f;
 
   // The rectangles that represent the player's hitboxes for different parts of
   // their bodies. The second character will have two extra because of the wings
@@ -84,9 +88,22 @@ public:
   int getHealth();
   string getHealthTexturePath();
   void setPosition(Vector2f position);
+  void setVelocity(Vector2f velocity);
+  Vector2f getVelocity();
   FloatRect getPosition();
+  void setInAir(bool inAir);
+  void setJumping(bool jumping);
+  void setFalling(bool falling);
+  bool canFly();
+  void incrementHealth(int increment);
+  void takeDamage(int amount);
 
   // Hitbox stuff
+  FloatRect getFeetHitbox();
+  FloatRect getHeadHitbox();
+  FloatRect getLeftArmHitbox();
+  FloatRect getRightArmHitbox();
+
   RectangleShape feetHitboxDrawable();
   RectangleShape headHitboxDrawable();
   RectangleShape leftArmHitboxDrawable();

@@ -13,9 +13,11 @@ void Engine::update(float elapsedTime) {
     m_timeSinceSwitch += elapsedTime;
 
     if (m_isHuman) {
+      m_currentLevel.detectCollision(m_human);
       m_human.update(elapsedTime);
       m_demon.setPosition(m_human.getSprite().getPosition());
     } else {
+      m_currentLevel.detectCollision(m_demon);
       m_demon.update(elapsedTime);
       m_human.setPosition(m_demon.getSprite().getPosition());
     }

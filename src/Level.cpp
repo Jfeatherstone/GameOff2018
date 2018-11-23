@@ -4,6 +4,8 @@
 
 using namespace sf;
 
+bool contains(char arr[], char c);
+
 bool Level::operator==(Level compare) {
   // This should properly differentiate between different levels while recognizing
   // identical ones
@@ -60,6 +62,113 @@ Level::~Level() {
   */
 }
 
+/*
+This is defined is this class because I don't want to deal with the nightmare of
+try to pass our two dimensional array for the level
+*/
+void Level::detectCollision(PlayableCharacter &character) {
+
+  // Since we don't want to check every single block in the level, we create a
+  // smaller zone around the players current location
+  FloatRect detectionZone = character.getPosition();
+  // Since our character has it center set at the center of the sprite, we have
+  // to account for that when we check collisions
+  detectionZone.left += detectionZone.width / 2;
+  detectionZone.top += detectionZone.height / 2;
+
+  // This will be assigned for each block as we iterate through the level
+  FloatRect block;
+  block.width = TILE_SIZE;
+  block.height = TILE_SIZE;
+
+  // Get the starting coordinates for our detection zone, adding some padding
+  // We divide y tile size because this isn't the location on the screen,
+  // but the location in the array
+  Vector2f start;
+  start.x = (int)(detectionZone.left / TILE_SIZE) - 1; // check and extra 1 to the left
+  start.y = (int)(detectionZone.top / TILE_SIZE) - 1;
+
+  // Where we should stop checking
+  Vector2f end;
+  end.x = start.x + 2 + (int)(detectionZone.width / TILE_SIZE);
+  end.y = start.y + 2 + (int) (detectionZone.height / TILE_SIZE);
+
+  // We don't want to check outside the level, so if the values are less than 0,
+  // we should set them equal to 0
+  if (start.x < 0)
+    start.x = 0;
+  if (start.y < 0)
+    start.y = 0;
+  if (end.x > m_levelSize.x)
+    end.x = m_levelSize.x;
+  if (end.y > m_levelSize.y)
+    end.y = m_levelSize.y;
+
+  // We also want to respawn the character if they fall out of the map
+  // and subtract health
+  // We want some padding on the sides of the level as well
+  FloatRect levelRect(-4 * TILE_SIZE, -7 * TILE_SIZE,
+     (m_levelSize.x + 8) * TILE_SIZE, (m_levelSize.y + 10) * TILE_SIZE);
+
+  if (!levelRect.intersects(detectionZone)) {
+    character.spawn(getStartingLocation(m_enteredFrom));
+    character.incrementHealth(-1);
+  }
+
+  // These are the blocks that will stop a player
+  char solidBlocks[] = {'b', 'c', 'd'};
+
+  for (int y = start.y; y < end.y; y++) {
+    for (int x = start.x; x < end.x; x++) {
+      // Assign our block variable
+      block.left = x * TILE_SIZE;
+      block.top = y * TILE_SIZE;
+
+      // Check for collision with feet
+      if (contains(solidBlocks, m_levelArray[y][x])
+      && character.getFeetHitbox().intersects(block)
+      && character.getVelocity().y >= 0) {
+        // Stop the player in the y direction only
+        character.setVelocity(Vector2f(character.getVelocity().x, 0));
+        // Also indicate that they are no longer in the air
+        character.setInAir(false);
+        character.setJumping(false);
+        character.setFalling(false);
+        // If we are the demon, we also want to subtract health
+        if (character.canFly())
+          character.takeDamage(1);
+      } else {
+        character.setInAir(true);
+      }
+
+      if (contains(solidBlocks, m_levelArray[y][x])
+      && character.getHeadHitbox().intersects(block)) {
+        // Stop the player in the y direction only
+        character.setVelocity(Vector2f(character.getVelocity().x, 0));
+        // Also indicate that they are no longer in the air
+        //character.setInAir(false);
+        character.setJumping(false);
+        character.setFalling(true);
+      }
+
+      if (contains(solidBlocks, m_levelArray[y][x])
+      && character.getLeftArmHitbox().intersects(block)
+      && character.getVelocity().x < 0) {
+        // Stop the player in the x direction only
+        character.setVelocity(Vector2f(0, character.getVelocity().y));
+      }
+
+      if (contains(solidBlocks, m_levelArray[y][x])
+      && character.getRightArmHitbox().intersects(block)
+      && character.getVelocity().x > 0) {
+        // Stop the player in the x direction only
+        character.setVelocity(Vector2f(0, character.getVelocity().y));
+      }
+
+    }
+  }
+}
+
 VertexArray Level::getVertexArray() {
   return m_vertexArray;
 }
@@ -77,6 +186,7 @@ string Level::getMapLocation() {
 }
 
 Vector2f Level::getStartingLocation(Direction dir) {
+  m_enteredFrom = dir;
   return m_startingLocation[dir];
 }
 
@@ -105,4 +215,12 @@ void Level::printLevel() {
   cout << "Tile Sheet: " << m_tileSheetPath << endl;
   cout << "Background: " << m_backgroundPath << endl;
   cout << endl;
+}
+
+bool contains(char* arr, char c) {
+  for (int i = 0; i < sizeof(arr)/sizeof(*arr); i++) {
+    if (arr[i] == c)
+      return true;
+  }
+  return false;
 }

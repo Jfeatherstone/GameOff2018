@@ -43,9 +43,12 @@ bool Human::handleInput(float elapsedTime) {
     m_velocity.x = 0;
 
   // Next, we want to handle jumping
-  if (Keyboard::isKeyPressed(Keyboard::W) && !m_inAir) {
+  if (Keyboard::isKeyPressed(Keyboard::W) && !m_inAir && !m_jumping) {
     m_inAir = true;
+    m_jumping = true;
     jumped = true;
+    m_currentJumpTime = 0;
+    m_velocity.y = - m_terminalVelocity * .75;
   }
 
   return jumped;

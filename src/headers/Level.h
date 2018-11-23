@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "TextureHolder.h"
 #include "NLLinkedList.h"
+#include "PlayableCharacter.h"
 
 using namespace sf;
 using namespace std;
@@ -39,6 +40,7 @@ private:
   // ie. RIGHT will hold the coordinates when the player enters from the left,
   // because the player exited the previous level to the right
   map<Direction, Vector2f> m_startingLocation;
+  Direction m_enteredFrom;
 
   // We will manage the tiles in the level through a vertex array
   VertexArray m_vertexArray;
@@ -65,6 +67,8 @@ public:
   map<Direction, Vector2f> getStartingLocations();
   string getMapLocation();
   Sprite getBackground();
+  void detectCollision(PlayableCharacter& character);
+
 
   // We have to override the == operator because the NLLinkedlist class uses it
   // to identify whether two levels are the same

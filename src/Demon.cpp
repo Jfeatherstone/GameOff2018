@@ -7,7 +7,7 @@ Demon::Demon() {
   m_characterSprite.setTexture(TextureHolder::getTexture("graphics/demon.png"));
   m_canFly = true;
   m_startingVelocity = 350;
-  m_terminalVelocity = -1200;
+  m_terminalVelocity = 800;
 }
 
 bool Demon::handleInput(float elapsedTime) {
@@ -42,8 +42,9 @@ bool Demon::handleInput(float elapsedTime) {
   if (!Keyboard::isKeyPressed(Keyboard::A) && !Keyboard::isKeyPressed(Keyboard::D))
     m_velocity.x = 0;
 
-  // Jumping
-  if (Keyboard::isKeyPressed(Keyboard::W) && !m_inAir) {
+  // "Jumping"
+  // Since this is actually flying, the player doesn't need to be on the ground
+  if (Keyboard::isKeyPressed(Keyboard::W)) {
     m_inAir = true;
     jumped = true;
   }
