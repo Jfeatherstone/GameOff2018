@@ -9,9 +9,14 @@ void PlayableCharacter::spawn(Vector2f position) {
 }
 
 void PlayableCharacter::update(float elapsedTime) {
+
+  // Apply gravity acceleration
+  m_velocity.y += - (m_velocity.y - m_terminalVelocity) * elapsedTime * m_gravityAcceleration;
+
   // Move our character
   m_position.x += m_velocity.x * elapsedTime;
-  //cout << m_position.x << " " << m_position.y << endl;
+  m_position.y += m_velocity.y * elapsedTime;
+  cout << m_position.x << " " << m_position.y << endl;
   m_characterSprite.setPosition(m_position);
 
   // We now want to update our hitboxes

@@ -64,10 +64,13 @@ protected:
   // We also need a way to keep track of whether our character is moving
   // Since we want a little bit of acceleration, we use floats instead of booleans
   Vector2f m_velocity;
-  float m_startingVelocity = 1000;
+  float m_startingVelocity;
   // Our acceleration, which is 350% each second up to 130%
   float m_acceleration = 3.5f;
   float m_accelerationCap = 1.5f;
+  float m_gravityAcceleration = .9f;
+  float m_terminalVelocity;
+
 
 public:
   // The handleInput function that will be different for each, which is why its virtual
