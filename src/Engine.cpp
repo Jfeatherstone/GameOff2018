@@ -102,4 +102,15 @@ void Engine::loadLevels() {
   }
   m_currentLevel = m_levels.getOrigin();
   m_directionToMove = Direction::NONE;
+
+  if (m_currentLevel.getLevelSize().x * Level::TILE_SIZE > m_windowSize.x
+    && m_currentLevel.getLevelSize().y * Level::TILE_SIZE < m_windowSize.y) {
+      m_mainView.setCenter(m_human.getCenter().x, m_windowSize.y / 2);
+  } else if (m_currentLevel.getLevelSize().x * Level::TILE_SIZE < m_windowSize.x
+    && m_currentLevel.getLevelSize().y * Level::TILE_SIZE > m_windowSize.y) {
+      m_mainView.setCenter(m_windowSize.x / 2, m_human.getCenter().y);
+  } else {
+      m_mainView.setCenter(m_windowSize.x / 2, m_windowSize.y / 2);
+  }
+
 }

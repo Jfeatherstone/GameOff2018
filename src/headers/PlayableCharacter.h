@@ -46,7 +46,7 @@ protected:
   // The jump duration of the character. For our first character, this will
   // be how long their jump is from the ground, and for the second character, this
   // is how long their flying movement is.
-  float m_jumpDuration = .15f;
+  float m_jumpDuration = .25f;
   float m_currentJumpTime;
 
   // We don't want the player to get hit with several ticks of damage in successsion
@@ -97,6 +97,8 @@ public:
   bool canFly();
   void incrementHealth(int increment);
   void takeDamage(int amount);
+  Vector2f getCenter();
+  void setHealth(int health);
 
   // Hitbox stuff
   FloatRect getFeetHitbox();

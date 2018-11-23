@@ -17,8 +17,6 @@ there, but upon collision, the player will move to a new area.
 */
 class Level {
 private:
-
-  const static int TILE_SIZE = 50;
   const static int VERTS_IN_QUAD = 4;
 
   // The background sprite for our level
@@ -50,6 +48,8 @@ private:
   string m_mapLocation;
 
 public:
+  const static int TILE_SIZE = 50;
+
   Level(Vector2i levelSize, map<Direction, Vector2f> startingLocation, string backgroundPath,
      string tileSheetPath, VertexArray vArray, string mapLocation,
      char** arr);
@@ -68,7 +68,7 @@ public:
   string getMapLocation();
   Sprite getBackground();
   void detectCollision(PlayableCharacter& character);
-
+  Vector2i getLevelSize();
 
   // We have to override the == operator because the NLLinkedlist class uses it
   // to identify whether two levels are the same

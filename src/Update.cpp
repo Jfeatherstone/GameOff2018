@@ -16,10 +16,12 @@ void Engine::update(float elapsedTime) {
       m_currentLevel.detectCollision(m_human);
       m_human.update(elapsedTime);
       m_demon.setPosition(m_human.getSprite().getPosition());
+      m_demon.setHealth(m_human.getHealth());
     } else {
       m_currentLevel.detectCollision(m_demon);
       m_demon.update(elapsedTime);
       m_human.setPosition(m_demon.getSprite().getPosition());
+      m_human.setHealth(m_demon.getHealth());
     }
 
     // First, if we need to fetch a new level, we do so
@@ -37,6 +39,7 @@ void Engine::update(float elapsedTime) {
 
       // Now we reset our direction so we don't repeatedly move
       m_directionToMove = Direction::NONE;
+
     }
   }
 }

@@ -149,6 +149,8 @@ void Level::detectCollision(PlayableCharacter &character) {
         //character.setInAir(false);
         character.setJumping(false);
         character.setFalling(true);
+        if (character.canFly())
+          character.takeDamage(1);        
       }
 
       if (contains(solidBlocks, m_levelArray[y][x])
@@ -183,6 +185,10 @@ string Level::getTileSheetPath() {
 
 string Level::getMapLocation() {
   return m_mapLocation;
+}
+
+Vector2i Level::getLevelSize() {
+  return m_levelSize;
 }
 
 Vector2f Level::getStartingLocation(Direction dir) {

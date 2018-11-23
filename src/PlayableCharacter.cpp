@@ -6,6 +6,8 @@ void PlayableCharacter::spawn(Vector2f position) {
   m_position.y = position.y;
   m_characterSprite.setPosition(m_position);
   //cout << m_position.x << " " << m_position.y << endl;
+  // So the player doesn't immediately die
+  m_timeSinceDamage = 0;
 }
 
 void PlayableCharacter::update(float elapsedTime) {
@@ -118,6 +120,14 @@ void PlayableCharacter::setFalling(bool falling) {
 
 bool PlayableCharacter::canFly() {
   return m_canFly;
+}
+
+Vector2f PlayableCharacter::getCenter() {
+  return Vector2f(m_position.x + getPosition().width / 2, m_position.y + getPosition().height / 2);
+}
+
+void PlayableCharacter::setHealth(int health) {
+  m_health = health;
 }
 
 void PlayableCharacter::takeDamage(int amount) {

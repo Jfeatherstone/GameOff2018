@@ -47,6 +47,9 @@ bool Demon::handleInput(float elapsedTime) {
   if (Keyboard::isKeyPressed(Keyboard::W)) {
     m_inAir = true;
     jumped = true;
+    jumped = true;
+    m_currentJumpTime = 0;
+    m_velocity.y = - m_terminalVelocity * .55;
   }
 
   return jumped;

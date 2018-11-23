@@ -16,12 +16,31 @@ void Engine::draw() {
   /***** END BACKGROUND VIEW *****/
 
   /***** MAIN VIEW *****/
+  cout << m_human.getCenter().x << endl;
+  // We want to have a dynamic camera in case our levels are big
+  if (m_currentLevel.getLevelSize().x * Level::TILE_SIZE > m_windowSize.x
+    && m_currentLevel.getLevelSize().y * Level::TILE_SIZE < m_windowSize.y) {
+      //cout << "x larger" << endl;
+      m_mainView.setCenter(m_human.getCenter().x, m_windowSize.y / 2);
+  } else if (m_currentLevel.getLevelSize().x * Level::TILE_SIZE < m_windowSize.x
+    && m_currentLevel.getLevelSize().y * Level::TILE_SIZE > m_windowSize.y) {
+      //cout << "y larger" << endl;
+      m_mainView.setCenter(m_windowSize.x / 2, m_human.getCenter().y);
+  } else if (m_currentLevel.getLevelSize().x * Level::TILE_SIZE > m_windowSize.x
+    && m_currentLevel.getLevelSize().y * Level::TILE_SIZE > m_windowSize.y) {
+      //cout << "both larger" << endl;
+      m_mainView.setCenter(m_human.getCenter().x, m_human.getCenter().y);
+  } else {
+      m_mainView.setCenter(m_windowSize.x / 2, m_windowSize.y / 2);
+  }
+
   m_window.setView(m_mainView);
   m_window.draw(m_currentLevel.getVertexArray(),
    &TextureHolder::getTexture(m_currentLevel.getTileSheetPath()));
   m_window.draw(currentChar);
 
   // For debugging our hitboxes
+  /*
   if (m_isHuman) {
     m_window.draw(m_human.feetHitboxDrawable());
     m_window.draw(m_human.headHitboxDrawable());
@@ -32,8 +51,8 @@ void Engine::draw() {
     m_window.draw(m_demon.headHitboxDrawable());
     m_window.draw(m_demon.leftArmHitboxDrawable());
     m_window.draw(m_demon.rightArmHitboxDrawable());
-  }
-  
+  }*/
+
   /***** END MAIN VIEW *****/
 
   /***** HUD VIEW *****/
