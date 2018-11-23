@@ -20,6 +20,20 @@ void Engine::draw() {
   m_window.draw(m_currentLevel.getVertexArray(),
    &TextureHolder::getTexture(m_currentLevel.getTileSheetPath()));
   m_window.draw(currentChar);
+
+  // For debugging our hitboxes
+  if (m_isHuman) {
+    m_window.draw(m_human.feetHitboxDrawable());
+    m_window.draw(m_human.headHitboxDrawable());
+    m_window.draw(m_human.leftArmHitboxDrawable());
+    m_window.draw(m_human.rightArmHitboxDrawable());
+  } else {
+    m_window.draw(m_demon.feetHitboxDrawable());
+    m_window.draw(m_demon.headHitboxDrawable());
+    m_window.draw(m_demon.leftArmHitboxDrawable());
+    m_window.draw(m_demon.rightArmHitboxDrawable());
+  }
+  
   /***** END MAIN VIEW *****/
 
   /***** HUD VIEW *****/

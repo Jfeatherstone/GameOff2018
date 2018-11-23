@@ -63,7 +63,7 @@ protected:
 
   // We also need a way to keep track of whether our character is moving
   // Since we want a little bit of acceleration, we use floats instead of booleans
-  float m_velocity = 0;
+  Vector2f m_velocity;
   float m_startingVelocity = 1000;
   // Our acceleration, which is 350% each second up to 130%
   float m_acceleration = 3.5f;
@@ -81,4 +81,15 @@ public:
   int getHealth();
   string getHealthTexturePath();
   void setPosition(Vector2f position);
+  FloatRect getPosition();
+
+  // Hitbox stuff
+  RectangleShape feetHitboxDrawable();
+  RectangleShape headHitboxDrawable();
+  RectangleShape leftArmHitboxDrawable();
+  RectangleShape rightArmHitboxDrawable();
+  // These two are virtual, because only the demon class has them
+  //RectangleShape virtual leftWingHitboxDrawable() = 0;
+  //RectangleShape virtual rightWingHitboxDrawable() = 0;
+
 };

@@ -10,9 +10,33 @@ void PlayableCharacter::spawn(Vector2f position) {
 
 void PlayableCharacter::update(float elapsedTime) {
   // Move our character
-  m_position.x += m_velocity * elapsedTime;
+  m_position.x += m_velocity.x * elapsedTime;
   //cout << m_position.x << " " << m_position.y << endl;
   m_characterSprite.setPosition(m_position);
+
+  // We now want to update our hitboxes
+  FloatRect r = getPosition();
+  // The extra numbers are to provide a slight padding on the sprite
+
+  m_feetHitbox.left = r.left;
+  m_feetHitbox.width = r.width;
+  m_feetHitbox.top = r.top + r.height - 8;
+  m_feetHitbox.height = 8;
+
+  m_headHitbox.left = r.left + 5;
+  m_headHitbox.width = r.width - 10;
+  m_headHitbox.top = r.top + 1;
+  m_headHitbox.height = 20;
+
+  m_leftArmHitbox.left = r.left + 2;
+  m_leftArmHitbox.width = 6;
+  m_leftArmHitbox.top = r.top + 28;
+  m_leftArmHitbox.height = 22;
+
+  m_rightArmHitbox.left = r.left + r.width - 8;
+  m_rightArmHitbox.width = 6;
+  m_rightArmHitbox.top = r.top + 28;
+  m_rightArmHitbox.height = 22;
 }
 
 string PlayableCharacter::getHealthTexturePath() {
@@ -31,4 +55,40 @@ void PlayableCharacter::setPosition(Vector2f position) {
   m_position.x = position.x;
   m_position.y = position.y;
   m_characterSprite.setPosition(m_position);
+}
+
+FloatRect PlayableCharacter::getPosition() {
+  return m_characterSprite.getGlobalBounds();
+}
+
+RectangleShape PlayableCharacter::feetHitboxDrawable() {
+  RectangleShape feet;
+  feet.setPosition(m_feetHitbox.left, m_feetHitbox.top);
+  feet.setSize(Vector2f(m_feetHitbox.width, m_feetHitbox.height));
+  feet.setFillColor(Color::Magenta);
+  return feet;
+}
+
+RectangleShape PlayableCharacter::headHitboxDrawable() {
+  RectangleShape head;
+  head.setPosition(m_headHitbox.left, m_headHitbox.top);
+  head.setSize(Vector2f(m_headHitbox.width, m_headHitbox.height));
+  head.setFillColor(Color::Cyan);
+  return head;
+}
+
+RectangleShape PlayableCharacter::leftArmHitboxDrawable() {
+  RectangleShape arm;
+  arm.setPosition(m_leftArmHitbox.left, m_leftArmHitbox.top);
+  arm.setSize(Vector2f(m_leftArmHitbox.width, m_leftArmHitbox.height));
+  arm.setFillColor(Color::Green);
+  return arm;
+}
+
+RectangleShape PlayableCharacter::rightArmHitboxDrawable() {
+  RectangleShape arm;
+  arm.setPosition(m_rightArmHitbox.left, m_rightArmHitbox.top);
+  arm.setSize(Vector2f(m_rightArmHitbox.width, m_rightArmHitbox.height));
+  arm.setFillColor(Color::Green);
+  return arm;
 }
