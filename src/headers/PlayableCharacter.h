@@ -46,7 +46,7 @@ protected:
   // The jump duration of the character. For our first character, this will
   // be how long their jump is from the ground, and for the second character, this
   // is how long their flying movement is.
-  float m_jumpDuration = .25f;
+  float m_jumpDuration = .4f;
   float m_currentJumpTime;
 
   // We don't want the player to get hit with several ticks of damage in successsion
@@ -72,7 +72,7 @@ protected:
   // Our acceleration, which is 350% each second up to 130%
   float m_acceleration = 3.5f;
   float m_accelerationCap = 1.5f;
-  float m_gravityAcceleration = .9f;
+  float m_gravityAcceleration = 1.5f;
   float m_terminalVelocity;
 
 

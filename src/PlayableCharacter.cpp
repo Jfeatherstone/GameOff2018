@@ -51,12 +51,12 @@ void PlayableCharacter::update(float elapsedTime) {
   m_leftArmHitbox.left = r.left + 2;
   m_leftArmHitbox.width = 6;
   m_leftArmHitbox.top = r.top + 28;
-  m_leftArmHitbox.height = 22;
+  m_leftArmHitbox.height = 38;
 
   m_rightArmHitbox.left = r.left + r.width - 8;
   m_rightArmHitbox.width = 6;
   m_rightArmHitbox.top = r.top + 28;
-  m_rightArmHitbox.height = 22;
+  m_rightArmHitbox.height = 38;
 }
 
 string PlayableCharacter::getHealthTexturePath() {

@@ -16,7 +16,6 @@ void Engine::draw() {
   /***** END BACKGROUND VIEW *****/
 
   /***** MAIN VIEW *****/
-  cout << m_human.getCenter().x << endl;
   // We want to have a dynamic camera in case our levels are big
   if (m_currentLevel.getLevelSize().x * Level::TILE_SIZE > m_windowSize.x
     && m_currentLevel.getLevelSize().y * Level::TILE_SIZE < m_windowSize.y) {
@@ -51,7 +50,7 @@ void Engine::draw() {
     m_window.draw(m_demon.headHitboxDrawable());
     m_window.draw(m_demon.leftArmHitboxDrawable());
     m_window.draw(m_demon.rightArmHitboxDrawable());
-  }*/
+  } */
 
   /***** END MAIN VIEW *****/
 
