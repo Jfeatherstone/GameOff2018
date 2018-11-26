@@ -9,8 +9,8 @@ All art will be original and created on my piskel account linked below!
 
 [Piskel link!](https://www.piskelapp.com/user/4977014434955264)
 
-A sample of movement as the human character!
-![movement](https://raw.githubusercontent.com/Jfeatherstone/GameOff2018/master/screenshots/movement.gif)
+A sample of movement!
+![movement](https://raw.githubusercontent.com/Jfeatherstone/GameOff2018/master/screenshots/level_transition.gif)
 
 
 # What we have so far:
@@ -25,3 +25,7 @@ A sample of movement as the human character!
  - A dynamic camera view based on the level size
 
  - An updating health bar
+
+ - The ability to move between levels
+
+ - Reasonable collisions

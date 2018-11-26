@@ -45,7 +45,7 @@ void Engine::draw() {
   m_window.draw(currentChar);
 
   // For debugging our hitboxes
-  ///*
+  /*
   if (m_isHuman) {
     m_window.draw(m_human.feetHitboxDrawable());
     m_window.draw(m_human.headHitboxDrawable());
@@ -57,7 +57,7 @@ void Engine::draw() {
     m_window.draw(m_demon.leftArmHitboxDrawable());
     m_window.draw(m_demon.rightArmHitboxDrawable());
   }
-  //*/
+  */
   /***** END MAIN VIEW *****/
 
   /***** HUD VIEW *****/
