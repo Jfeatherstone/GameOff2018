@@ -55,6 +55,15 @@ private:
   // And a tracker for how long it's been
   float m_timeSinceSwitch;
 
+  // We want to have a simple timer to prevent the escape button from being spammed
+  float m_timeSincePause = 0;
+  // Pause menu stuff
+  Text m_resumeText;
+  Text m_exitText;
+  // This font has to be defined here because the font must be around as long
+  // as the text is being displayed
+  Font font;
+
   // Our current level
   Level m_currentLevel;
   // And all of our levels, in our custom NLLinkedList class
@@ -72,7 +81,7 @@ private:
   // Whether or not we need a new level, along with the direction to go
   // This will be set to the value of NONE if we don't need to change levels
   // This variable has been moved to playable character
-  
+
   // Our abstracted functions
   // These are defined in their own files according to their name
   void input(float elapsedTime);

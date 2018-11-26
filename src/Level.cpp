@@ -158,7 +158,7 @@ void Level::detectCollision(PlayableCharacter &character) {
       && character.getVelocity().x < 0) {
         // Stop the player in the x direction only
         character.setVelocity(Vector2f(0, character.getVelocity().y));
-        cout << "Stopped left" << endl;
+        //cout << "Stopped left" << endl;
       }
 
       if (contains(solidBlocks, m_levelArray[y][x])
@@ -166,7 +166,7 @@ void Level::detectCollision(PlayableCharacter &character) {
       && character.getVelocity().x > 0) {
         // Stop the player in the x direction only
         character.setVelocity(Vector2f(0, character.getVelocity().y));
-        cout << "Stopped right" << endl;
+        //cout << "Stopped right" << endl;
       }
 
       /****** EXITS & ENTRANCES ******/

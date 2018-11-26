@@ -72,9 +72,12 @@ void Engine::draw() {
 
   /***** END HUD VIEW *****/
 
-  /***** MENU VIEW *****/
-  m_window.setView(m_menuView);
-
+  if (m_menuActive) {
+    /***** MENU VIEW *****/
+    m_window.setView(m_menuView);
+    m_window.draw(m_resumeText);
+    m_window.draw(m_exitText);
+  }
   /***** END MENU VIEW *****/
 
   m_window.display();

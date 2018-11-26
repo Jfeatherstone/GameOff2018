@@ -1,5 +1,4 @@
 #include "headers/Engine.h"
-#include <SFML/Graphics.hpp>
 
 using namespace sf;
 
@@ -68,6 +67,25 @@ Engine::Engine() {
   // We want to spawn both characters, even if we are only playing one
   m_human.spawn(newPosition);
   m_demon.spawn(newPosition);
+
+
+  // We now want to setup our pause menu
+  font.loadFromFile("fonts/Pixellari.ttf");
+  m_resumeText.setFont(font);
+  m_exitText.setFont(font);
+
+  m_resumeText.setString("Resume");
+  m_exitText.setString("Exit");
+
+  FloatRect rect = m_resumeText.getLocalBounds();
+  m_resumeText.setOrigin(rect.left + rect.width / 2, rect.top + rect.height / 2);
+  m_resumeText.setPosition(m_windowSize.x / 2, m_windowSize.y / 2 - 36);
+  m_resumeText.setFillColor(Color::Red);
+
+  rect = m_exitText.getLocalBounds();
+  m_exitText.setOrigin(rect.left + rect.width / 2, rect.top + rect.height / 2);
+  m_exitText.setPosition(m_windowSize.x / 2, m_windowSize.y / 2 + 36);
+  m_exitText.setFillColor(Color::Red);
 
 }
 

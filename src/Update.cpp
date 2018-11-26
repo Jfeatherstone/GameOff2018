@@ -1,6 +1,7 @@
 #include "headers/Engine.h"
 
 void Engine::update(float elapsedTime) {
+  m_timeSincePause += elapsedTime;
 
   if (m_menuActive) {
 
