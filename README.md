@@ -29,3 +29,10 @@ A sample of movement!
  - The ability to move between levels
 
  - Reasonable collisions
+
+
+Fonts used:
+
+[Komikap](https://www.dafont.com/komika-parch.font)
+
+[Pixellari](https://www.dafont.com/pixellari.font)
