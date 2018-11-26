@@ -128,6 +128,9 @@ T NLLinkedList<T>::get(Direction direction) {
     case Direction::NONE:
       // Do nothing here
       break;
+    case Direction::START:
+      // Do nothing
+      break;
   }
 
   // We can now create our tenative new key and see if there is a value
@@ -243,45 +246,48 @@ Most of the code for this one is taken from the get(Direction direction) method
 */
 template<class T>
 void NLLinkedList<T>::add(T node, Direction direction) {
-    // Two of these will stay at zero, but the other will be either 1 or -1
-    int dx = 0;
-    int dy = 0;
-    int dz = 0;
+  // Two of these will stay at zero, but the other will be either 1 or -1
+  int dx = 0;
+  int dy = 0;
+  int dz = 0;
 
-    int* key = separateKey();
+  int* key = separateKey();
 
-    // Depending on which direction we're trying to go, we should modify the
-    // appropriate variable, and leave the others at 0
-    // This makes sure that we only ever move 1 node in one direction at any time
+  // Depending on which direction we're trying to go, we should modify the
+  // appropriate variable, and leave the others at 0
+  // This makes sure that we only ever move 1 node in one direction at any time
 
-    switch (direction) {
-      case Direction::LEFT:
-        dx = -1;
-        break;
-      case Direction::RIGHT:
-        dx = 1;
-        break;
-      case Direction::UP:
-        dy = 1;
-        break;
-      case Direction::DOWN:
-        dy = -1;
-        break;
-      case Direction::IN:
-        dz = -1;
-        break;
-      case Direction::OUT:
-        dz = 1;
-        break;
-      case Direction::NONE:
-        // Do nothing here
-        break;
-    }
+  switch (direction) {
+    case Direction::LEFT:
+      dx = -1;
+      break;
+    case Direction::RIGHT:
+      dx = 1;
+      break;
+    case Direction::UP:
+      dy = 1;
+      break;
+    case Direction::DOWN:
+      dy = -1;
+      break;
+    case Direction::IN:
+      dz = -1;
+      break;
+    case Direction::OUT:
+      dz = 1;
+      break;
+    case Direction::NONE:
+      // Do nothing here
+      break;
+    case Direction::START:
+      // Do nothing
+      break;
+  }
 
-    currentKey = formKey(key[0] + dx, key[1] + dy, key[2] + dz);
-    llMap[currentKey] = node;
-    currentNode = node;
-    delete[] key;
+  currentKey = formKey(key[0] + dx, key[1] + dy, key[2] + dz);
+  llMap[currentKey] = node;
+  currentNode = node;
+  delete[] key;
 
 }
 

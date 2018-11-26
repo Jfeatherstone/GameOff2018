@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "TextureHolder.h"
 #include <iostream>
+#include "NLLinkedList.h"
 
 using namespace sf;
 using namespace std;
@@ -74,7 +75,7 @@ protected:
   float m_accelerationCap = 1.5f;
   float m_gravityAcceleration = 1.5f;
   float m_terminalVelocity;
-
+  Direction m_directionToMove = Direction::NONE;
 
 public:
   // The handleInput function that will be different for each, which is why its virtual
@@ -99,6 +100,8 @@ public:
   void takeDamage(int amount);
   Vector2f getCenter();
   void setHealth(int health);
+  void setDirectionToMove(Direction dir);
+  Direction getDirectionToMove();
 
   // Hitbox stuff
   FloatRect getFeetHitbox();

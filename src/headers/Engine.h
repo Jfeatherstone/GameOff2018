@@ -71,8 +71,8 @@ private:
 
   // Whether or not we need a new level, along with the direction to go
   // This will be set to the value of NONE if we don't need to change levels
-  Direction m_directionToMove;
-
+  // This variable has been moved to playable character
+  
   // Our abstracted functions
   // These are defined in their own files according to their name
   void input(float elapsedTime);

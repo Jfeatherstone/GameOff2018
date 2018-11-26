@@ -12,7 +12,7 @@ void PlayableCharacter::spawn(Vector2f position) {
 
 void PlayableCharacter::update(float elapsedTime) {
 
-  cout << m_falling << " " << m_jumping << " " << m_inAir << endl;
+  //cout << m_falling << " " << m_jumping << " " << m_inAir << endl;
   // Update our damage cooldown
   m_timeSinceDamage += elapsedTime;
 
@@ -106,6 +106,14 @@ FloatRect PlayableCharacter::getLeftArmHitbox() {
 
 FloatRect PlayableCharacter::getRightArmHitbox() {
   return m_rightArmHitbox;
+}
+
+void PlayableCharacter::setDirectionToMove(Direction dir) {
+  m_directionToMove = dir;
+}
+
+Direction PlayableCharacter::getDirectionToMove() {
+  return m_directionToMove;
 }
 
 void PlayableCharacter::setInAir(bool inAir) {

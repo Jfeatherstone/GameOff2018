@@ -167,8 +167,26 @@ void Level::detectCollision(PlayableCharacter &character) {
         character.setVelocity(Vector2f(0, character.getVelocity().y));
       }
 
+      /****** EXITS & ENTRANCES ******/
+      // Next up, we want to be able to detect when the player moves from
+      // level to level
+      // We will use the first letter of the direction being moved to indicate
+      // a doorway (eg. r move you right)
+
+      if (m_levelArray[y][x] == 'r'
+      && character.getHeadHitbox().intersects(block)) {
+        character.setDirectionToMove(Direction::RIGHT);
+      }
+
+      if (m_levelArray[y][x] == 'l'
+      && character.getHeadHitbox().intersects(block)) {
+        character.setDirectionToMove(Direction::LEFT);
+      }
+
     }
   }
+  // We do this after the for loop because otherwise a single non solid block
+  // would mark the entire sprite as not being on the ground
   if (!onGround)
     character.setInAir(true);
 }

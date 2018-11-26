@@ -99,6 +99,5 @@ void Engine::loadLevels() {
     m_levels.addAt(level, level.getMapLocation());
   }
   m_currentLevel = m_levels.getOrigin();
-  m_directionToMove = Direction::NONE;
 
 }
