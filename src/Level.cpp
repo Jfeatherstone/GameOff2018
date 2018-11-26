@@ -90,7 +90,7 @@ void Level::detectCollision(PlayableCharacter &character) {
 
   // Where we should stop checking
   Vector2f end;
-  end.x = start.x + 2 + (int)(detectionZone.width / TILE_SIZE);
+  end.x = start.x + 3 + (int)(detectionZone.width / TILE_SIZE);
   end.y = start.y + 2 + (int) (detectionZone.height / TILE_SIZE);
 
   // We don't want to check outside the level, so if the values are less than 0,
@@ -123,7 +123,7 @@ void Level::detectCollision(PlayableCharacter &character) {
       // Assign our block variable
       block.left = x * TILE_SIZE;
       block.top = y * TILE_SIZE;
-
+      //cout << block.left << " " << (detectionZone.left + detectionZone.width) << endl;
       // Check for collision with feet
       if (contains(solidBlocks, m_levelArray[y][x])
       && character.getFeetHitbox().intersects(block)
@@ -158,6 +158,7 @@ void Level::detectCollision(PlayableCharacter &character) {
       && character.getVelocity().x < 0) {
         // Stop the player in the x direction only
         character.setVelocity(Vector2f(0, character.getVelocity().y));
+        cout << "Stopped left" << endl;
       }
 
       if (contains(solidBlocks, m_levelArray[y][x])
@@ -165,6 +166,7 @@ void Level::detectCollision(PlayableCharacter &character) {
       && character.getVelocity().x > 0) {
         // Stop the player in the x direction only
         character.setVelocity(Vector2f(0, character.getVelocity().y));
+        cout << "Stopped right" << endl;
       }
 
       /****** EXITS & ENTRANCES ******/
@@ -182,6 +184,27 @@ void Level::detectCollision(PlayableCharacter &character) {
       && character.getHeadHitbox().intersects(block)) {
         character.setDirectionToMove(Direction::LEFT);
       }
+
+      if (m_levelArray[y][x] == 'u'
+      && character.getHeadHitbox().intersects(block)) {
+        character.setDirectionToMove(Direction::UP);
+      }
+
+      if (m_levelArray[y][x] == 'd'
+      && character.getHeadHitbox().intersects(block)) {
+        character.setDirectionToMove(Direction::DOWN);
+      }
+
+      if (m_levelArray[y][x] == 'i'
+      && character.getHeadHitbox().intersects(block)) {
+        character.setDirectionToMove(Direction::IN);
+      }
+
+      if (m_levelArray[y][x] == 'o'
+      && character.getHeadHitbox().intersects(block)) {
+        character.setDirectionToMove(Direction::OUT);
+      }
+
 
     }
   }

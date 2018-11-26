@@ -43,7 +43,7 @@ Engine::Engine() {
   for (int i = 0; i < 4; i++) {
     // We initialize this as human because that's who we start as
     // It doesn't really matter though as their both the same size.
-    cout << m_human.getHealthTexturePath() << endl;
+    //cout << m_human.getHealthTexturePath() << endl;
     m_health[i].setTexture(TextureHolder::getTexture(m_human.getHealthTexturePath()));
     // We also set the origin so we can rotate the image properly
     m_health[i].setOrigin(m_health[i].getLocalBounds().width / 2,

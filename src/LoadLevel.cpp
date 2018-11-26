@@ -2,7 +2,6 @@
 #include <fstream>
 #include <list>
 #include <cmath>
-#include <iostream>
 
 using namespace std;
 

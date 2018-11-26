@@ -50,13 +50,13 @@ void PlayableCharacter::update(float elapsedTime) {
   m_headHitbox.top = r.top + 1;
   m_headHitbox.height = 20;
 
-  m_leftArmHitbox.left = r.left + 2;
-  m_leftArmHitbox.width = 2;
+  m_leftArmHitbox.left = r.left;
+  m_leftArmHitbox.width = 1;
   m_leftArmHitbox.top = r.top + 28;
   m_leftArmHitbox.height = 36;
 
-  m_rightArmHitbox.left = r.left + r.width - 4;
-  m_rightArmHitbox.width = 2;
+  m_rightArmHitbox.left = r.left + r.width - 1;
+  m_rightArmHitbox.width = 1;
   m_rightArmHitbox.top = r.top + 28;
   m_rightArmHitbox.height = 36;
 }
