@@ -4,7 +4,7 @@
 
 using namespace sf;
 
-bool contains(char arr[], char c);
+bool contains(vector<char>, char c);
 
 bool Level::operator==(Level compare) {
   // This should properly differentiate between different levels while recognizing
@@ -116,7 +116,9 @@ void Level::detectCollision(PlayableCharacter &character) {
   }
 
   // These are the blocks that will stop a player
-  char solidBlocks[] = {'b', 'c', 'd'};
+  vector<char> solidBlocks = {'b', 'c', 'g', 'h', 'e', 'i', 'z'};
+  vector<char> hazardBlocks = {'f', 'j'};
+
   bool onGround = false;
   for (int y = start.y; y < end.y; y++) {
     for (int x = start.x; x < end.x; x++) {
@@ -167,6 +169,8 @@ void Level::detectCollision(PlayableCharacter &character) {
         // Stop the player in the x direction only
         character.setVelocity(Vector2f(0, character.getVelocity().y));
         //cout << "Stopped left" << endl;
+        if (character.canFly())
+          character.takeDamage(1);
         continue;
       }
 
@@ -176,7 +180,23 @@ void Level::detectCollision(PlayableCharacter &character) {
         // Stop the player in the x direction only
         character.setVelocity(Vector2f(0, character.getVelocity().y));
         //cout << "Stopped right" << endl;
+        if (character.canFly())
+          character.takeDamage(1);
         continue;
+      }
+
+      /****** HAZARDS ******/
+      if (contains(hazardBlocks, m_levelArray[y][x])) {
+        cout << "First" << endl;
+      if (character.getHeadHitbox().intersects(block)
+          || character.getLeftArmHitbox().intersects(block)
+          || character.getRightArmHitbox().intersects(block)
+          || character.getFeetHitbox().intersects(block)) {
+        cout << "Hazard" << endl;
+        character.spawn(getStartingLocation(m_enteredFrom));
+        character.incrementHealth(-1);
+        continue;
+      }
       }
 
       /****** EXITS & ENTRANCES ******/
@@ -300,8 +320,9 @@ void Level::printLevel() {
   cout << endl;
 }
 
-bool contains(char* arr, char c) {
-  for (int i = 0; i < sizeof(arr)/sizeof(*arr); i++) {
+bool contains(vector<char> arr, char c) {
+  //cout << arr.size() << endl;
+  for (int i = 0; i < arr.size(); i++) {
     if (arr[i] == c)
       return true;
   }

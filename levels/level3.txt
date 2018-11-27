@@ -1,0 +1,12 @@
+start_location=right, 50, 200
+location=1 0 0
+background=graphics/castle_background.png
+tile_sheet=graphics/tile_sheet_castle.png
+<level>
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+laaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+laaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+laaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+laaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+<level>
