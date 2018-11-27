@@ -73,6 +73,7 @@ Engine::Engine() {
   font.loadFromFile("fonts/Pixellari.ttf");
   m_resumeText.setFont(font);
   m_exitText.setFont(font);
+  m_resetText.setFont(font);
 
   m_resumeText.setString("Resume");
   m_exitText.setString("Exit");

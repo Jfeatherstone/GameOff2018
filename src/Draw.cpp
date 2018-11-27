@@ -21,6 +21,9 @@ void Engine::draw() {
   The reason this is such a clown fiesta is because we want to be able to give
   the user the most amount of screen possible. If we are close to the edge of the
   levels, we want to not center on the player, but otherwise we do
+
+  I sincerely apologize to anyone who even looks at this next section
+
   */
   if (m_currentLevel.getLevelSize().x * Level::TILE_SIZE > m_windowSize.x
     && m_currentLevel.getLevelSize().y * Level::TILE_SIZE < m_windowSize.y
@@ -34,10 +37,24 @@ void Engine::draw() {
     && m_currentLevel.getLevelSize().y * Level::TILE_SIZE > m_windowSize.y
     && (m_human.getCenter().y >= m_windowSize.y / 1.2)) {
       //cout << "y larger" << endl;
-      m_mainView.setCenter(m_windowSize.x / 2, m_human.getCenter().y);
+      if (m_human.getCenter().x >= m_currentLevel.getLevelSize().x * Level::TILE_SIZE - m_windowSize.x / 2)
+        m_mainView.setCenter(m_windowSize.x / 2, m_currentLevel.getLevelSize().y * Level::TILE_SIZE - m_windowSize.y / 2);
+      else
+        m_mainView.setCenter(m_windowSize.x / 2, m_human.getCenter().y);
   } else if (m_currentLevel.getLevelSize().x * Level::TILE_SIZE > m_windowSize.x
     && m_currentLevel.getLevelSize().y * Level::TILE_SIZE > m_windowSize.y) {
-      m_mainView.setCenter(m_human.getCenter().x, m_human.getCenter().y);
+      float xPos = m_human.getCenter().x;
+      float yPos = m_human.getCenter().y;
+      if (m_human.getCenter().x >= m_currentLevel.getLevelSize().x * Level::TILE_SIZE - m_windowSize.x / 2)
+        xPos = m_currentLevel.getLevelSize().x * Level::TILE_SIZE - m_windowSize.x / 2;
+      if (m_human.getCenter().y >= m_currentLevel.getLevelSize().y * Level::TILE_SIZE - m_windowSize.y / 2)
+        yPos = m_currentLevel.getLevelSize().y * Level::TILE_SIZE - m_windowSize.y / 2;
+      if (m_human.getCenter().x <= m_windowSize.x / 2)
+        xPos = m_windowSize.x / 2;
+      if (m_human.getCenter().y <= m_windowSize.y / 2)
+        yPos = m_windowSize.y / 2;
+
+      m_mainView.setCenter(xPos, yPos);
   } else {
       //cout << m_human.getCenter().x << " " << m_currentLevel.getLevelSize().x * Level::TILE_SIZE - m_windowSize.x / 2 << endl;
       m_mainView.setCenter(m_windowSize.x / 2, m_windowSize.y / 2);

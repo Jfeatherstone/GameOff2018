@@ -48,7 +48,7 @@ bool Human::handleInput(float elapsedTime) {
     m_jumping = true;
     jumped = true;
     m_currentJumpTime = 0;
-    m_velocity.y = - m_terminalVelocity * .75;
+    m_velocity.y = - m_terminalVelocity * .8;
   }
 
   return jumped;

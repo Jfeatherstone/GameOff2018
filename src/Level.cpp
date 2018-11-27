@@ -90,7 +90,7 @@ void Level::detectCollision(PlayableCharacter &character) {
 
   // Where we should stop checking
   Vector2f end;
-  end.x = start.x + 3 + (int)(detectionZone.width / TILE_SIZE);
+  end.x = start.x + 4 + (int)(detectionZone.width / TILE_SIZE);
   end.y = start.y + 4 + (int) (detectionZone.height / TILE_SIZE);
 
   // We don't want to check outside the level, so if the values are less than 0,
@@ -144,6 +144,7 @@ void Level::detectCollision(PlayableCharacter &character) {
         // If we are the demon, we also want to subtract health
         if (character.canFly())
           character.takeDamage(1);
+        continue;
       }
 
       if (contains(solidBlocks, m_levelArray[y][x])
@@ -157,6 +158,7 @@ void Level::detectCollision(PlayableCharacter &character) {
         character.setFalling(true);
         if (character.canFly())
           character.takeDamage(1);
+        continue;
       }
 
       if (contains(solidBlocks, m_levelArray[y][x])
@@ -165,6 +167,7 @@ void Level::detectCollision(PlayableCharacter &character) {
         // Stop the player in the x direction only
         character.setVelocity(Vector2f(0, character.getVelocity().y));
         //cout << "Stopped left" << endl;
+        continue;
       }
 
       if (contains(solidBlocks, m_levelArray[y][x])
@@ -173,6 +176,7 @@ void Level::detectCollision(PlayableCharacter &character) {
         // Stop the player in the x direction only
         character.setVelocity(Vector2f(0, character.getVelocity().y));
         //cout << "Stopped right" << endl;
+        continue;
       }
 
       /****** EXITS & ENTRANCES ******/
@@ -182,33 +186,57 @@ void Level::detectCollision(PlayableCharacter &character) {
       // a doorway (eg. r move you right)
 
       if (m_levelArray[y][x] == 'r'
-      && character.getHeadHitbox().intersects(block)) {
+      && (character.getHeadHitbox().intersects(block)
+          || character.getLeftArmHitbox().intersects(block)
+          || character.getRightArmHitbox().intersects(block)
+          || character.getFeetHitbox().intersects(block))) {
         character.setDirectionToMove(Direction::RIGHT);
+        continue;
       }
 
       if (m_levelArray[y][x] == 'l'
-      && character.getHeadHitbox().intersects(block)) {
+      && (character.getHeadHitbox().intersects(block)
+          || character.getLeftArmHitbox().intersects(block)
+          || character.getRightArmHitbox().intersects(block)
+          || character.getFeetHitbox().intersects(block))) {
         character.setDirectionToMove(Direction::LEFT);
+        continue;
       }
 
       if (m_levelArray[y][x] == 'u'
-      && character.getHeadHitbox().intersects(block)) {
+      && (character.getHeadHitbox().intersects(block)
+          || character.getLeftArmHitbox().intersects(block)
+          || character.getRightArmHitbox().intersects(block)
+          || character.getFeetHitbox().intersects(block))) {
         character.setDirectionToMove(Direction::UP);
+        continue;
       }
 
       if (m_levelArray[y][x] == 'd'
-      && character.getHeadHitbox().intersects(block)) {
+      && (character.getHeadHitbox().intersects(block)
+          || character.getLeftArmHitbox().intersects(block)
+          || character.getRightArmHitbox().intersects(block)
+          || character.getFeetHitbox().intersects(block))) {
         character.setDirectionToMove(Direction::DOWN);
+        continue;
       }
 
       if (m_levelArray[y][x] == 'i'
-      && character.getHeadHitbox().intersects(block)) {
+      && (character.getHeadHitbox().intersects(block)
+          || character.getLeftArmHitbox().intersects(block)
+          || character.getRightArmHitbox().intersects(block)
+          || character.getFeetHitbox().intersects(block))) {
         character.setDirectionToMove(Direction::IN);
+        continue;
       }
 
       if (m_levelArray[y][x] == 'o'
-      && character.getHeadHitbox().intersects(block)) {
+      && (character.getHeadHitbox().intersects(block)
+          || character.getLeftArmHitbox().intersects(block)
+          || character.getRightArmHitbox().intersects(block)
+          || character.getFeetHitbox().intersects(block))) {
         character.setDirectionToMove(Direction::OUT);
+        continue;
       }
 
 
