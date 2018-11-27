@@ -10,7 +10,7 @@ All art will be original and created on my piskel account linked below!
 [Piskel link!](https://www.piskelapp.com/user/4977014434955264)
 
 A sample of movement!
-![movement](https://raw.githubusercontent.com/Jfeatherstone/GameOff2018/master/screenshots/level_transition.gif)
+![movement](https://raw.githubusercontent.com/Jfeatherstone/GameOff2018/master/screenshots/movement.gif)
 
 
 # What we have so far:
@@ -30,9 +30,21 @@ A sample of movement!
 
  - Reasonable collisions
 
+ - Pause menu
 
-Fonts used:
+# Fonts used:
 
 [Komikap](https://www.dafont.com/komika-parch.font)
 
 [Pixellari](https://www.dafont.com/pixellari.font)
+
+
+# Controls:
+
+W - Jump
+
+A + D - Left and right movement
+
+E - Switch characters
+
+Esc - Pause
