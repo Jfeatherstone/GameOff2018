@@ -60,6 +60,7 @@ private:
   // Pause menu stuff
   Text m_resumeText;
   Text m_exitText;
+  Text m_resetText;
   // This font has to be defined here because the font must be around as long
   // as the text is being displayed
   Font font;

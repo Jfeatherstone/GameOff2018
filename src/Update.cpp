@@ -31,7 +31,7 @@ void Engine::update(float elapsedTime) {
     if (m_human.getDirectionToMove() != Direction::NONE || m_demon.getDirectionToMove() != Direction::NONE ) {
 
       // We set the player location, update the current level
-      cout << "New Level" << endl;
+      //cout << "New Level" << endl;
       m_currentLevel = m_levels.get(m_human.getDirectionToMove());
 
       // We now update the player's location

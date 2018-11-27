@@ -26,16 +26,20 @@ void Engine::draw() {
     && m_currentLevel.getLevelSize().y * Level::TILE_SIZE < m_windowSize.y
     && m_human.getCenter().x >= m_windowSize.x / 2) {
       //cout << "x larger" << endl;
-      m_mainView.setCenter(m_human.getCenter().x, m_windowSize.y / 2);
+      if (m_human.getCenter().x >= m_currentLevel.getLevelSize().x * Level::TILE_SIZE - m_windowSize.x / 2) {
+        m_mainView.setCenter(m_currentLevel.getLevelSize().x * Level::TILE_SIZE - m_windowSize.x / 2, m_windowSize.y / 2);
+      } else
+        m_mainView.setCenter(m_human.getCenter().x, m_windowSize.y / 2);
   } else if (m_currentLevel.getLevelSize().x * Level::TILE_SIZE < m_windowSize.x
     && m_currentLevel.getLevelSize().y * Level::TILE_SIZE > m_windowSize.y
-    && m_human.getCenter().y >= m_windowSize.y / 1.2) {
+    && (m_human.getCenter().y >= m_windowSize.y / 1.2)) {
       //cout << "y larger" << endl;
       m_mainView.setCenter(m_windowSize.x / 2, m_human.getCenter().y);
   } else if (m_currentLevel.getLevelSize().x * Level::TILE_SIZE > m_windowSize.x
     && m_currentLevel.getLevelSize().y * Level::TILE_SIZE > m_windowSize.y) {
       m_mainView.setCenter(m_human.getCenter().x, m_human.getCenter().y);
   } else {
+      //cout << m_human.getCenter().x << " " << m_currentLevel.getLevelSize().x * Level::TILE_SIZE - m_windowSize.x / 2 << endl;
       m_mainView.setCenter(m_windowSize.x / 2, m_windowSize.y / 2);
   }
 
@@ -77,6 +81,7 @@ void Engine::draw() {
     m_window.setView(m_menuView);
     m_window.draw(m_resumeText);
     m_window.draw(m_exitText);
+    m_window.draw(m_resetText);
   }
   /***** END MENU VIEW *****/
 

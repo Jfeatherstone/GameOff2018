@@ -8,6 +8,7 @@ Demon::Demon() {
   m_canFly = true;
   m_startingVelocity = 350;
   m_terminalVelocity = 800;
+  m_jumpDuration = .55f;
 }
 
 bool Demon::handleInput(float elapsedTime) {
@@ -44,12 +45,12 @@ bool Demon::handleInput(float elapsedTime) {
 
   // "Jumping"
   // Since this is actually flying, the player doesn't need to be on the ground
-  if (Keyboard::isKeyPressed(Keyboard::W)) {
+  if (Keyboard::isKeyPressed(Keyboard::W) && !m_jumping) {
     m_inAir = true;
     jumped = true;
-    jumped = true;
+    m_jumping = true;
     m_currentJumpTime = 0;
-    m_velocity.y = - m_terminalVelocity * .55;
+    m_velocity.y = - m_terminalVelocity * .75;
   }
 
   return jumped;

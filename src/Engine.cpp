@@ -76,6 +76,7 @@ Engine::Engine() {
 
   m_resumeText.setString("Resume");
   m_exitText.setString("Exit");
+  m_resetText.setString("Reset");
 
   FloatRect rect = m_resumeText.getLocalBounds();
   m_resumeText.setOrigin(rect.left + rect.width / 2, rect.top + rect.height / 2);
@@ -87,6 +88,10 @@ Engine::Engine() {
   m_exitText.setPosition(m_windowSize.x / 2, m_windowSize.y / 2 + 36);
   m_exitText.setFillColor(Color::Red);
 
+  rect = m_resetText.getLocalBounds();
+  m_resetText.setOrigin(rect.left + rect.width / 2, rect.top + rect.height / 2);
+  m_resetText.setPosition(m_windowSize.x / 2, m_windowSize.y / 2);
+  m_resetText.setFillColor(Color::Red);
 }
 
 void Engine::run() {

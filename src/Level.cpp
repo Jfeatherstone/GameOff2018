@@ -91,7 +91,7 @@ void Level::detectCollision(PlayableCharacter &character) {
   // Where we should stop checking
   Vector2f end;
   end.x = start.x + 3 + (int)(detectionZone.width / TILE_SIZE);
-  end.y = start.y + 2 + (int) (detectionZone.height / TILE_SIZE);
+  end.y = start.y + 4 + (int) (detectionZone.height / TILE_SIZE);
 
   // We don't want to check outside the level, so if the values are less than 0,
   // we should set them equal to 0
@@ -123,6 +123,11 @@ void Level::detectCollision(PlayableCharacter &character) {
       // Assign our block variable
       block.left = x * TILE_SIZE;
       block.top = y * TILE_SIZE;
+      if ((block.left > detectionZone.left + TILE_SIZE / 4
+        && block.left < detectionZone.left + detectionZone.width - TILE_SIZE / 4)
+        && (block.top > detectionZone.top + TILE_SIZE / 4
+          && block.top < detectionZone.top + detectionZone.top - TILE_SIZE / 4))
+        continue;
       //cout << block.left << " " << (detectionZone.left + detectionZone.width) << endl;
       // Check for collision with feet
       if (contains(solidBlocks, m_levelArray[y][x])
@@ -134,6 +139,7 @@ void Level::detectCollision(PlayableCharacter &character) {
         character.setInAir(false);
         character.setJumping(false);
         character.setFalling(false);
+        character.setPosition(Vector2f(character.getCenter().x - detectionZone.width / 2, block.top - 2*block.height));
         onGround = true;
         // If we are the demon, we also want to subtract health
         if (character.canFly())
