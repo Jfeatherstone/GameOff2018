@@ -19,14 +19,16 @@ void Engine::update(float elapsedTime) {
       m_demon.setPosition(m_human.getSprite().getPosition());
       m_demon.setHealth(m_human.getHealth());
       m_demon.setDirectionToMove(m_human.getDirectionToMove());
+      m_demon.setScore(m_human.getScore());
     } else {
       m_currentLevel.detectCollision(m_demon);
       m_demon.update(elapsedTime);
       m_human.setPosition(m_demon.getSprite().getPosition());
       m_human.setHealth(m_demon.getHealth());
       m_human.setDirectionToMove(m_demon.getDirectionToMove());
+      m_human.setScore(m_demon.getScore());
     }
-
+    
     // First, if we need to fetch a new level, we do so
     if (m_human.getDirectionToMove() != Direction::NONE || m_demon.getDirectionToMove() != Direction::NONE ) {
 
@@ -75,7 +77,7 @@ void Engine::update(float elapsedTime) {
 
       m_playing = false;
       m_menuActive = true;
-      
+
       m_messageText.setString("You died!");
       FloatRect rect = m_messageText.getLocalBounds();
       m_messageText.setOrigin(rect.left + rect.width / 2, rect.top + rect.height / 2);

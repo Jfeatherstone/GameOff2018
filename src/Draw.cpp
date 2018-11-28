@@ -65,6 +65,13 @@ void Engine::draw() {
   m_window.draw(m_currentLevel.getVertexArray(),
    &TextureHolder::getTexture(m_currentLevel.getTileSheetPath()));
   m_window.draw(currentChar);
+  // We also want to draw our coins here too
+  for (auto element: m_currentLevel.getCoins()) {
+    Sprite coin;
+    coin.setTexture(TextureHolder::getTexture("graphics/coin.png"));
+    coin.setPosition(element.x * Level::TILE_SIZE, element.y * Level::TILE_SIZE);
+    m_window.draw(coin);
+  }
 
   // For debugging our hitboxes
   /*
@@ -91,7 +98,12 @@ void Engine::draw() {
     m_health[i].setTexture(TextureHolder::getTexture(healthTexture));
     m_window.draw(m_health[i]);
   }
-
+  // We also want to draw the score
+  stringstream ss;
+  ss << "Score: " << m_human.getScore();
+  m_scoreText.setString(ss.str());
+  m_window.draw(m_scoreText);
+  
   /***** END HUD VIEW *****/
 
   if (m_menuActive) {

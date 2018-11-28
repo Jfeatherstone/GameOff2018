@@ -181,6 +181,18 @@ void PlayableCharacter::incrementHealth(int increment) {
   m_health += increment;
 }
 
+void PlayableCharacter::setScore(int score) {
+  m_score = score;
+}
+
+void PlayableCharacter::incrementScore(int increment) {
+  m_score += increment;
+}
+
+int PlayableCharacter::getScore() {
+  return m_score;
+}
+
 RectangleShape PlayableCharacter::feetHitboxDrawable() {
   RectangleShape feet;
   feet.setPosition(m_feetHitbox.left, m_feetHitbox.top);

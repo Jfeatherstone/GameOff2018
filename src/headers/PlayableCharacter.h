@@ -17,7 +17,10 @@ protected:
   const int m_maxHealth = 4;
 
   // Each character will have a different name
-  string m_name;
+  string m_name; // This is unused for now
+
+  // The player's score
+  int m_score;
 
   /*
   // Probably won't have health regen because of the health system above
@@ -102,6 +105,10 @@ public:
   void setHealth(int health);
   void setDirectionToMove(Direction dir);
   Direction getDirectionToMove();
+  void setScore(int score);
+  int getScore();
+  void incrementScore(int increment);
+
 
   // Hitbox stuff
   FloatRect getFeetHitbox();

@@ -60,3 +60,5 @@ Linux:
 Windows:
 
   - Working on it...
+  - For now, if you can compile the source yourself, that should work, just be
+  sure to include sfml as well as c++ filesystem

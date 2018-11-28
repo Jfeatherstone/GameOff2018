@@ -3,6 +3,7 @@
 #include "TextureHolder.h"
 #include "NLLinkedList.h"
 #include "PlayableCharacter.h"
+#include <list>
 
 using namespace sf;
 using namespace std;
@@ -44,6 +45,9 @@ private:
   VertexArray m_vertexArray;
   char** m_levelArray;
 
+  // We want to keep track of which coins we have not gotten already
+  list<Vector2f> m_coins;
+
   // This will allow us to place the level in the map where it belongs
   string m_mapLocation;
 
@@ -52,7 +56,7 @@ public:
 
   Level(Vector2i levelSize, map<Direction, Vector2f> startingLocation, string backgroundPath,
      string tileSheetPath, VertexArray vArray, string mapLocation,
-     char** arr);
+     char** arr, list<Vector2f> coins);
 
   // We will never call this constructor for making our game, but it is used as
   // a control in the NLLinkedList class so we can compare values easily
@@ -69,6 +73,7 @@ public:
   Sprite getBackground();
   void detectCollision(PlayableCharacter& character);
   Vector2i getLevelSize();
+  list<Vector2f> getCoins();
 
   // We have to override the == operator because the NLLinkedlist class uses it
   // to identify whether two levels are the same
