@@ -14,7 +14,7 @@ void Engine::input(float elapsedTime) {
       m_messageText.setOrigin(rect.left + rect.width / 2, rect.top + rect.height / 2);
       m_messageText.setPosition(m_windowSize.x / 2, 150);
     }
-
+    m_finalScoreText.setString("");
   }
 
   if (m_menuActive) {
@@ -78,8 +78,8 @@ void Engine::input(float elapsedTime) {
               FloatRect rect = m_messageText.getLocalBounds();
               m_messageText.setOrigin(rect.left + rect.width / 2, rect.top + rect.height / 2);
               m_messageText.setPosition(m_windowSize.x / 2, 150);
-
             }
+            m_finalScoreText.setString("");
       }
 
 
@@ -87,11 +87,13 @@ void Engine::input(float elapsedTime) {
           && (pos.y > resume.top && pos.y < resume.top + resume.height)) {
         m_menuActive = false;
         m_playing = true;
-        if (m_messageText.getString() == "You died!")
+        if (m_messageText.getString() == "You died!") {
           m_messageText.setString("Paused");
           FloatRect rect = m_messageText.getLocalBounds();
           m_messageText.setOrigin(rect.left + rect.width / 2, rect.top + rect.height / 2);
           m_messageText.setPosition(m_windowSize.x / 2, 150);
+        }
+        m_finalScoreText.setString("");
       }
 
     }

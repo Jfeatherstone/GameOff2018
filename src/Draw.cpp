@@ -122,6 +122,7 @@ void Engine::draw() {
     m_window.draw(m_exitText);
     m_window.draw(m_resetText);
     m_window.draw(m_messageText);
+    m_window.draw(m_finalScoreText);
   }
   /***** END MENU VIEW *****/
 

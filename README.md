@@ -39,7 +39,7 @@ A sample of movement!
 [Pixellari](https://www.dafont.com/pixellari.font)
 
 
-# Controls:
+# How to Play:
 
 W - Jump
 
@@ -48,6 +48,10 @@ A + D - Left and right movement
 E - Switch characters
 
 Esc - Pause
+
+Try and collect as many coins as you can!
+
+Make sure to sure to switch between characters often as each have their own coins
 
 
 # Running the game

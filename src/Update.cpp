@@ -74,18 +74,27 @@ void Engine::update(float elapsedTime) {
       // And pause the game
       m_human.setHealth(4);
       m_demon.setHealth(4);
-      m_human.setScore(0);
-      m_demon.setScore(0);
 
       m_playing = false;
       m_menuActive = true;
 
       m_messageText.setString("You died!");
+      stringstream ss;
+      ss << "Score: " << m_human.getScore();
+      m_finalScoreText.setString(ss.str());
+
       FloatRect rect = m_messageText.getLocalBounds();
       m_messageText.setOrigin(rect.left + rect.width / 2, rect.top + rect.height / 2);
       m_messageText.setPosition(m_windowSize.x / 2, 150);
 
+      rect = m_finalScoreText.getLocalBounds();
+      m_finalScoreText.setOrigin(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      m_finalScoreText.setPosition(m_windowSize.x / 2, 200);
+
       m_isHuman = true;
+
+      m_human.setScore(0);
+      m_demon.setScore(0);
     }
   }
 }

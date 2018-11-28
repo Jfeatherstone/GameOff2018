@@ -77,6 +77,7 @@ Engine::Engine() {
   m_resetText.setFont(font);
   m_messageText.setFont(font);
   m_scoreText.setFont(font);
+  m_finalScoreText.setFont(font);
 
   m_resumeText.setString("Resume");
   m_exitText.setString("Exit");
@@ -102,6 +103,11 @@ Engine::Engine() {
   m_messageText.setOrigin(rect.left + rect.width / 2, rect.top + rect.height / 2);
   m_messageText.setPosition(m_windowSize.x / 2, 150);
   m_messageText.setFillColor(Color::Blue);
+
+  rect = m_finalScoreText.getLocalBounds();
+  m_finalScoreText.setOrigin(rect.left + rect.width / 2, rect.top + rect.height / 2);
+  m_finalScoreText.setPosition(m_windowSize.x / 2, 200);
+  m_finalScoreText.setFillColor(Color::Blue);
 
   rect = m_scoreText.getLocalBounds();
   m_scoreText.setOrigin(rect.left + rect.width / 2, rect.top + rect.height / 2);
