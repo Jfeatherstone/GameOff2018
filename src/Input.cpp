@@ -69,6 +69,10 @@ void Engine::input(float elapsedTime) {
             m_demon.setDirectionToMove(Direction::NONE);
             m_human.setHealth(4);
             m_demon.setHealth(4);
+
+            m_human.setScore(0);
+            m_demon.setScore(0);
+
             if (m_messageText.getString() == "You died!") {
               m_messageText.setString("Paused");
               FloatRect rect = m_messageText.getLocalBounds();

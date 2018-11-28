@@ -46,7 +46,8 @@ private:
   char** m_levelArray;
 
   // We want to keep track of which coins we have not gotten already
-  list<Vector2f> m_coins;
+  list<Vector2f> m_darkCoins;
+  list<Vector2f> m_lightCoins;
 
   // This will allow us to place the level in the map where it belongs
   string m_mapLocation;
@@ -56,7 +57,7 @@ public:
 
   Level(Vector2i levelSize, map<Direction, Vector2f> startingLocation, string backgroundPath,
      string tileSheetPath, VertexArray vArray, string mapLocation,
-     char** arr, list<Vector2f> coins);
+     char** arr, list<Vector2f> darkCoins, list<Vector2f> lightCoins);
 
   // We will never call this constructor for making our game, but it is used as
   // a control in the NLLinkedList class so we can compare values easily
@@ -73,7 +74,8 @@ public:
   Sprite getBackground();
   void detectCollision(PlayableCharacter& character);
   Vector2i getLevelSize();
-  list<Vector2f> getCoins();
+  list<Vector2f> getDarkCoins();
+  list<Vector2f> getLightCoins();
 
   // We have to override the == operator because the NLLinkedlist class uses it
   // to identify whether two levels are the same

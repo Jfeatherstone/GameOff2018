@@ -66,12 +66,21 @@ void Engine::draw() {
    &TextureHolder::getTexture(m_currentLevel.getTileSheetPath()));
   m_window.draw(currentChar);
   // We also want to draw our coins here too
-  for (auto element: m_currentLevel.getCoins()) {
-    Sprite coin;
-    coin.setTexture(TextureHolder::getTexture("graphics/coin.png"));
-    coin.setPosition(element.x * Level::TILE_SIZE, element.y * Level::TILE_SIZE);
-    m_window.draw(coin);
-  }
+  if (m_isHuman) {
+    for (auto element: m_currentLevel.getLightCoins()) {
+      Sprite coin;
+      coin.setTexture(TextureHolder::getTexture("graphics/light_coin.png"));
+      coin.setPosition(element.x * Level::TILE_SIZE, element.y * Level::TILE_SIZE);
+      m_window.draw(coin);
+    }
+  } else {
+    for (auto element: m_currentLevel.getDarkCoins()) {
+      Sprite coin;
+      coin.setTexture(TextureHolder::getTexture("graphics/dark_coin.png"));
+      coin.setPosition(element.x * Level::TILE_SIZE, element.y * Level::TILE_SIZE);
+      m_window.draw(coin);
+    }
+}
 
   // For debugging our hitboxes
   /*
@@ -103,7 +112,7 @@ void Engine::draw() {
   ss << "Score: " << m_human.getScore();
   m_scoreText.setString(ss.str());
   m_window.draw(m_scoreText);
-  
+
   /***** END HUD VIEW *****/
 
   if (m_menuActive) {

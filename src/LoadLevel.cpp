@@ -28,7 +28,8 @@ Level Level::loadLevel(const string levelFilePath) {
   string location;
   string tileSheet;
   string background;
-  list<Vector2f> coins;
+  list<Vector2f> lightCoins;
+  list<Vector2f> darkCoins;
 
   // And the list for our level data
   list<string> levelData;
@@ -134,10 +135,14 @@ Level Level::loadLevel(const string levelFilePath) {
     int y = 0;
     for (string s: levelData) {
       for (char c: s) {
-        if (c == 'x') {
+        if (c == '1') {
           // If we have a coin, we set the array to hold an 'a' and add the coin to our list
           arr[y][x] = 'a';
-          coins.push_back(Vector2f(x, y));
+          lightCoins.push_back(Vector2f(x, y));
+        } else if (c == '2') {
+          // If we have a coin, we set the array to hold an 'a' and add the coin to our list
+          arr[y][x] = 'a';
+          darkCoins.push_back(Vector2f(x, y));
         } else
           arr[y][x] = c;
         //cout << (int) arr[y][x];
@@ -184,7 +189,7 @@ Level Level::loadLevel(const string levelFilePath) {
     if (background.length() > 0 && tileSheet.length() > 0) {
       // Once our starting location is set, we can setup our textures
 
-      return *(new Level(levelSize, startLocations, background, tileSheet, vArray, location, arr, coins));
+      return *(new Level(levelSize, startLocations, background, tileSheet, vArray, location, arr, darkCoins, lightCoins));
     }
   } else {
     cout << "Invalid level data in file \"" << levelFilePath << "\"!";

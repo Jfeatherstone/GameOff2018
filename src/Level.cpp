@@ -38,10 +38,11 @@ First we want to assign our member variables to their new values
 Besides this, there isn't really much to do here
 */
 Level::Level(Vector2i levelSize, map<Direction, Vector2f> startingLocation, string backgroundPath,
-   string tileSheet, VertexArray vArray, string mapLocation, char** arr, list<Vector2f> coins):
+   string tileSheet, VertexArray vArray, string mapLocation, char** arr,
+   list<Vector2f> darkCoins, list<Vector2f> lightCoins):
   m_tileSheetPath(tileSheet), m_levelSize(levelSize),
   m_startingLocation(startingLocation), m_vertexArray(vArray), m_levelArray(arr),
-  m_coins(coins), m_mapLocation(mapLocation) {
+  m_darkCoins(darkCoins), m_lightCoins(lightCoins), m_mapLocation(mapLocation) {
 
    m_backgroundPath = backgroundPath;
    m_background.setTexture(TextureHolder::getTexture(backgroundPath));
@@ -128,12 +129,39 @@ void Level::detectCollision(PlayableCharacter &character) {
       // Assign our block variable
       block.left = x * TILE_SIZE;
       block.top = y * TILE_SIZE;
-      if ((block.left > detectionZone.left + TILE_SIZE / 4
-        && block.left < detectionZone.left + detectionZone.width - TILE_SIZE / 4)
-        && (block.top > detectionZone.top + TILE_SIZE / 4
-          && block.top < detectionZone.top + detectionZone.top - TILE_SIZE / 4))
+
+      // We do these first so that we can ignore all other air blocks afterwards
+      /****** COINS ******/
+      if (m_levelArray[y][x] == 'a' && contains(m_darkCoins, Vector2f(x, y))
+       && character.canFly()
+       && (character.getHeadHitbox().intersects(block)
+          || character.getLeftArmHitbox().intersects(block)
+          || character.getRightArmHitbox().intersects(block)
+          || character.getFeetHitbox().intersects(block))) {
+        // We want to remove the coin from this list and increase the player's
+        // score
+        character.incrementScore(1);
+        m_darkCoins.remove(Vector2f(x, y));
         continue;
-      //cout << block.left << " " << (detectionZone.left + detectionZone.width) << endl;
+      }
+
+      if (m_levelArray[y][x] == 'a' && contains(m_lightCoins, Vector2f(x, y))
+       && !character.canFly()
+       && (character.getHeadHitbox().intersects(block)
+          || character.getLeftArmHitbox().intersects(block)
+          || character.getRightArmHitbox().intersects(block)
+          || character.getFeetHitbox().intersects(block))) {
+        // We want to remove the coin from this list and increase the player's
+        // score
+        character.incrementScore(1);
+        m_lightCoins.remove(Vector2f(x, y));
+        continue;
+      }
+
+      // We don't detect any other collisions with 'a', so we can skip the rest
+      if (m_levelArray[y][x] == 'a')
+        continue;
+
       // Check for collision with feet
       if (contains(solidBlocks, m_levelArray[y][x])
       && character.getFeetHitbox().intersects(block)
@@ -188,6 +216,11 @@ void Level::detectCollision(PlayableCharacter &character) {
         continue;
       }
 
+      // Now that we're done with collisions of solid blocks, we can continue
+      // This will grab solid blocks that we are almost touching
+      if (contains(solidBlocks, m_levelArray[y][x]))
+        continue;
+
       /****** HAZARDS ******/
       if (contains(hazardBlocks, m_levelArray[y][x])
        && (character.getHeadHitbox().intersects(block)
@@ -201,17 +234,11 @@ void Level::detectCollision(PlayableCharacter &character) {
 
       }
 
-      /****** COINS ******/
-      if (m_levelArray[y][x] == 'a' && contains(m_coins, Vector2f(x, y))
-       && (character.getHeadHitbox().intersects(block)
-          || character.getLeftArmHitbox().intersects(block)
-          || character.getRightArmHitbox().intersects(block)
-          || character.getFeetHitbox().intersects(block))) {
-        // We want to remove the coin from this list and increase the player's
-        // score
-        character.incrementScore(1);
-        m_coins.remove(Vector2f(x, y));
-      }
+      // Same deal as above
+      if (contains(hazardBlocks, m_levelArray[y][x]))
+        continue;
+
+
       /****** EXITS & ENTRANCES ******/
       // Next up, we want to be able to detect when the player moves from
       // level to level
@@ -314,9 +341,14 @@ Sprite Level::getBackground() {
   return m_background;
 }
 
-list<Vector2f> Level::getCoins() {
-  return m_coins;
+list<Vector2f> Level::getDarkCoins() {
+  return m_darkCoins;
 }
+
+list<Vector2f> Level::getLightCoins() {
+  return m_lightCoins;
+}
+
 
 void Level::printLevel() {
   cout << endl << "Map location: " << m_mapLocation << endl;

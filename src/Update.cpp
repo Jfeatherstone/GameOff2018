@@ -28,7 +28,7 @@ void Engine::update(float elapsedTime) {
       m_human.setDirectionToMove(m_demon.getDirectionToMove());
       m_human.setScore(m_demon.getScore());
     }
-    
+
     // First, if we need to fetch a new level, we do so
     if (m_human.getDirectionToMove() != Direction::NONE || m_demon.getDirectionToMove() != Direction::NONE ) {
 
@@ -74,6 +74,8 @@ void Engine::update(float elapsedTime) {
       // And pause the game
       m_human.setHealth(4);
       m_demon.setHealth(4);
+      m_human.setScore(0);
+      m_demon.setScore(0);
 
       m_playing = false;
       m_menuActive = true;
