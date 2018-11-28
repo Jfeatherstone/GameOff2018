@@ -20,7 +20,7 @@ A sample of movement!
 
  - Lateral movement and jumping/flying for both characters
 
- - Some *very* basic sprites
+ - Some basic sprites
 
  - A dynamic camera view based on the level size
 
@@ -48,3 +48,15 @@ A + D - Left and right movement
 E - Switch characters
 
 Esc - Pause
+
+
+# Running the game
+
+Linux:
+
+  - Download all of the files from the repo
+  - cd to the directory and run ./Main
+
+Windows:
+
+  - Working on it...
