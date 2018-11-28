@@ -53,10 +53,11 @@ private:
   // There has to be some cooldown for switching characters
   float m_playerSwitchCooldown = 2;
   // And a tracker for how long it's been
-  float m_timeSinceSwitch;
+  // This starts at 2 so we can switch immediately
+  float m_timeSinceSwitch = 2;
 
   // We want to have a simple timer to prevent the escape button from being spammed
-  float m_timeSincePause = 0;
+  float m_timeSincePause = 2;
   // Pause menu stuff
   Text m_resumeText;
   Text m_exitText;

@@ -23,6 +23,7 @@ void Engine::draw() {
   levels, we want to not center on the player, but otherwise we do
 
   I sincerely apologize to anyone who even looks at this next section
+  When I wrote this, only God and I understood it, and now, only God does
 
   */
   if (m_currentLevel.getLevelSize().x * Level::TILE_SIZE > m_windowSize.x

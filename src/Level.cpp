@@ -186,17 +186,16 @@ void Level::detectCollision(PlayableCharacter &character) {
       }
 
       /****** HAZARDS ******/
-      if (contains(hazardBlocks, m_levelArray[y][x])) {
-        cout << "First" << endl;
-      if (character.getHeadHitbox().intersects(block)
+      if (contains(hazardBlocks, m_levelArray[y][x])
+       && (character.getHeadHitbox().intersects(block)
           || character.getLeftArmHitbox().intersects(block)
           || character.getRightArmHitbox().intersects(block)
-          || character.getFeetHitbox().intersects(block)) {
-        cout << "Hazard" << endl;
+          || character.getFeetHitbox().intersects(block))) {
+        //cout << "Hazard" << endl;
+        character.takeDamage(1);
         character.spawn(getStartingLocation(m_enteredFrom));
-        character.incrementHealth(-1);
         continue;
-      }
+
       }
 
       /****** EXITS & ENTRANCES ******/
@@ -308,7 +307,7 @@ void Level::printLevel() {
     // The DIRECTION_NAMES array is found in NLLinkedList.h
     cout << DIRECTION_NAMES[element.first] << " (" << element.second.x << ", " << element.second.y << ")" << endl;
   }
-  cout << "Level size: (" << m_levelSize.x << ", " << m_levelSize.y << ")" << endl;
+  cout << "Level size: (" << m_levelSize.x * TILE_SIZE << ", " << m_levelSize.y * TILE_SIZE << ")" << endl;
   for (int y = 0; y < m_levelSize.y; y++) {
     for (int x = 0; x < m_levelSize.x; x++) {
       cout << m_levelArray[y][x];

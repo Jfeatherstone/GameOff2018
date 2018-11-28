@@ -33,9 +33,18 @@ void Engine::update(float elapsedTime) {
       // We set the player location, update the current level
       //cout << "New Level" << endl;
       m_currentLevel = m_levels.get(m_human.getDirectionToMove());
-
+      //cout << DIRECTION_NAMES[m_human.getDirectionToMove()] << endl;
+      //m_currentLevel.printLevel();
       // We now update the player's location
       Vector2f newPosition = m_currentLevel.getStartingLocation(m_human.getDirectionToMove());
+      //cout << newPosition.x << " " << newPosition.y << endl;
+      // This next part is for debugging levels
+
+      if (newPosition.x + m_human.getPosition().width > m_currentLevel.getLevelSize().x * Level::TILE_SIZE)
+        cout << "Spawn location outside of level (x - " << newPosition.x << " vs. " << m_currentLevel.getLevelSize().x * Level::TILE_SIZE <<" )" << endl;
+
+      if (newPosition.y + m_human.getPosition().height > m_currentLevel.getLevelSize().y * Level::TILE_SIZE)
+        cout << "Spawn location outside of level (y - " << newPosition.y << " vs. " << m_currentLevel.getLevelSize().y * Level::TILE_SIZE <<" )" << endl;
 
       // We want to spawn both characters, even if we are only playing one
       m_human.spawn(newPosition);
@@ -49,6 +58,7 @@ void Engine::update(float elapsedTime) {
 
     // If our health drops to 0, we restart the entire map
     if (m_human.getHealth() <= 0) {
+      //cout << "Died" << endl;
       m_currentLevel = m_levels.getOrigin();
       Vector2f newPosition = m_currentLevel.getStartingLocation(Direction::START);
 
