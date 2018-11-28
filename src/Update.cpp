@@ -31,7 +31,7 @@ void Engine::update(float elapsedTime) {
     if (m_human.getDirectionToMove() != Direction::NONE || m_demon.getDirectionToMove() != Direction::NONE ) {
 
       // This should only be here while creating and testing levels
-      loadLevels();
+      //loadLevels();
 
       // We set the player location, update the current level
       //cout << "New Level" << endl;
@@ -72,6 +72,16 @@ void Engine::update(float elapsedTime) {
       // And pause the game
       m_human.setHealth(4);
       m_demon.setHealth(4);
+
+      m_playing = false;
+      m_menuActive = true;
+      
+      m_messageText.setString("You died!");
+      FloatRect rect = m_messageText.getLocalBounds();
+      m_messageText.setOrigin(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      m_messageText.setPosition(m_windowSize.x / 2, 150);
+
+      m_isHuman = true;
     }
   }
 }

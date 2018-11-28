@@ -5,6 +5,7 @@ void PlayableCharacter::spawn(Vector2f position) {
   m_position.x = position.x;
   m_position.y = position.y;
   m_characterSprite.setPosition(m_position);
+  m_characterSprite.setOrigin(getPosition().width / 2, getPosition().height / 2);
   //cout << m_position.x << " " << m_position.y << endl;
   // So the player doesn't immediately die
   m_timeSinceDamage = .5;
