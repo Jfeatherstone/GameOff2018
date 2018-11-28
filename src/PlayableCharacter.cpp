@@ -66,22 +66,24 @@ void PlayableCharacter::update(float elapsedTime) {
     Texture wingTexture = TextureHolder::getTexture("graphics/demon_wing.png");
     Vector2u wing = wingTexture.getSize();
 
-    m_feetHitbox.left = r.left + 7 + wing.x - 4;
-    m_feetHitbox.width = r.width - 14 - 2 * wing.x + 8;
+    int wingOverlap = 3;
+
+    m_feetHitbox.left = r.left + 7 + wing.x - wingOverlap;
+    m_feetHitbox.width = r.width - 14 - 2 * wing.x + 2 * wingOverlap;
     m_feetHitbox.top = r.top + r.height - 4;
     m_feetHitbox.height = 4;
 
-    m_headHitbox.left = r.left + 6 + wing.x - 4;
-    m_headHitbox.width = r.width - 12 - 2 * wing.x + 8;
+    m_headHitbox.left = r.left + 6 + wing.x - wingOverlap;
+    m_headHitbox.width = r.width - 12 - 2 * wing.x + 2 * wingOverlap;
     m_headHitbox.top = r.top + 1;
     m_headHitbox.height = 20;
 
-    m_leftArmHitbox.left = r.left + wing.x;
+    m_leftArmHitbox.left = r.left + wing.x - wingOverlap;
     m_leftArmHitbox.width = 1;
     m_leftArmHitbox.top = r.top + 28;
     m_leftArmHitbox.height = 36;
 
-    m_rightArmHitbox.left = r.left + r.width - 1 - wing.x;
+    m_rightArmHitbox.left = r.left + r.width - 1 - wing.x + wingOverlap;
     m_rightArmHitbox.width = 1;
     m_rightArmHitbox.top = r.top + 28;
     m_rightArmHitbox.height = 36;
