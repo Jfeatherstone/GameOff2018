@@ -39,26 +39,53 @@ void PlayableCharacter::update(float elapsedTime) {
   // We now want to update our hitboxes
   FloatRect r = getPosition();
   // The extra numbers are to provide a slight padding on the sprite
+  if (!m_canFly) {
+    m_feetHitbox.left = r.left + 7;
+    m_feetHitbox.width = r.width - 14;
+    m_feetHitbox.top = r.top + r.height - 4;
+    m_feetHitbox.height = 4;
 
-  m_feetHitbox.left = r.left + 7;
-  m_feetHitbox.width = r.width - 14;
-  m_feetHitbox.top = r.top + r.height - 4;
-  m_feetHitbox.height = 4;
+    m_headHitbox.left = r.left + 6;
+    m_headHitbox.width = r.width - 12;
+    m_headHitbox.top = r.top + 1;
+    m_headHitbox.height = 20;
 
-  m_headHitbox.left = r.left + 6;
-  m_headHitbox.width = r.width - 12;
-  m_headHitbox.top = r.top + 1;
-  m_headHitbox.height = 20;
+    m_leftArmHitbox.left = r.left;
+    m_leftArmHitbox.width = 1;
+    m_leftArmHitbox.top = r.top + 28;
+    m_leftArmHitbox.height = 36;
 
-  m_leftArmHitbox.left = r.left;
-  m_leftArmHitbox.width = 1;
-  m_leftArmHitbox.top = r.top + 28;
-  m_leftArmHitbox.height = 36;
+    m_rightArmHitbox.left = r.left + r.width - 1;
+    m_rightArmHitbox.width = 1;
+    m_rightArmHitbox.top = r.top + 28;
+    m_rightArmHitbox.height = 36;
+  } else {
+    // For the demon, we will load in a sprite of just the wing to do some calculations
 
-  m_rightArmHitbox.left = r.left + r.width - 1;
-  m_rightArmHitbox.width = 1;
-  m_rightArmHitbox.top = r.top + 28;
-  m_rightArmHitbox.height = 36;
+    Texture wingTexture = TextureHolder::getTexture("graphics/demon_wing.png");
+    Vector2u wing = wingTexture.getSize();
+
+    m_feetHitbox.left = r.left + 7 + wing.x - 4;
+    m_feetHitbox.width = r.width - 14 - 2 * wing.x + 8;
+    m_feetHitbox.top = r.top + r.height - 4;
+    m_feetHitbox.height = 4;
+
+    m_headHitbox.left = r.left + 6 + wing.x - 4;
+    m_headHitbox.width = r.width - 12 - 2 * wing.x + 8;
+    m_headHitbox.top = r.top + 1;
+    m_headHitbox.height = 20;
+
+    m_leftArmHitbox.left = r.left + wing.x;
+    m_leftArmHitbox.width = 1;
+    m_leftArmHitbox.top = r.top + 28;
+    m_leftArmHitbox.height = 36;
+
+    m_rightArmHitbox.left = r.left + r.width - 1 - wing.x;
+    m_rightArmHitbox.width = 1;
+    m_rightArmHitbox.top = r.top + 28;
+    m_rightArmHitbox.height = 36;
+
+  }
 }
 
 string PlayableCharacter::getHealthTexturePath() {

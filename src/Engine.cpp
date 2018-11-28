@@ -61,6 +61,7 @@ Engine::Engine() {
   m_health[3].setScale(-1.5, -1.5);
 
   loadLevels();
+  m_currentLevel = m_levels.getOrigin();
 
   // We now update the player's location
   Vector2f newPosition = m_currentLevel.getStartingLocation(Direction::START);
@@ -122,6 +123,5 @@ void Engine::loadLevels() {
     // Add our level to the list
     m_levels.addAt(level, level.getMapLocation());
   }
-  m_currentLevel = m_levels.getOrigin();
 
 }

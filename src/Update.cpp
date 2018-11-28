@@ -30,6 +30,9 @@ void Engine::update(float elapsedTime) {
     // First, if we need to fetch a new level, we do so
     if (m_human.getDirectionToMove() != Direction::NONE || m_demon.getDirectionToMove() != Direction::NONE ) {
 
+      // This should only be here while creating and testing levels
+      loadLevels();
+
       // We set the player location, update the current level
       //cout << "New Level" << endl;
       m_currentLevel = m_levels.get(m_human.getDirectionToMove());
