@@ -22,6 +22,9 @@ Engine::Engine() {
 
   m_window.create(VideoMode(resolution.x, resolution.y), "Github Game Off 2018", Style::Default);
 
+  // This should limit the framerate and provide more stable animations
+  m_window.setFramerateLimit(60);
+
   // Setup our views with their proper sizes, which are all the same
   FloatRect reset(0, 0, resolution.x, resolution.y);
   m_mainView.setSize(resolution);
@@ -126,13 +129,55 @@ void Engine::run() {
   Clock clock;
   Time dt;
 
+  // For performance testing
+  /*
+  11-28-18 Test:
+  Not moving:
+    Average time for input(): .00210s
+    Average time for update(): .0000717s
+    Average time for draw(): .0231s *Largest Impact*
+  Moving around:
+    Average time for input(): .000866s
+    Average time for update(): .0000612s
+    Average time for draw(): .0177s *Largest Impact*
+  Moving + transformations:
+    Average time for input(): .000898s
+    Average time for update(): .0000375s
+    Average time for draw(): .0147s *Largest Impact*
+
+  I have no idea why moving and transformation actually *increases* the performance,
+  but we can certainly conclude the draw function is the most impactful across
+  the board.
+
+  For I assume similar reasons, the draw() benchmarks are faster while the you are
+  the demon character, even though we have to render more objects ????
+
+  */
+  Clock benchmark;
+  Vector3f avg;
+  int n = 1;
+
   // Our game loop
   while (m_window.isOpen()) {
     dt = clock.restart();
+    benchmark.restart();
 
     input(dt.asSeconds());
+    avg.x += benchmark.restart().asSeconds();
     update(dt.asSeconds());
+    avg.y += benchmark.restart().asSeconds();
     draw(dt.asSeconds());
+    avg.z += benchmark.restart().asSeconds();
+
+    // The framerate
+    //cout << 1 / dt.asSeconds() << endl;
+
+    n++;
+    if (n >= 10) {
+      n = 1;
+      //cout << avg.x / 10 << " " << avg.y / 10 << " " << avg.z / 10 << endl;
+      avg.x = avg.y = avg.z = 0;
+    }
   }
 }
 

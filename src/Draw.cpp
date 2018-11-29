@@ -2,7 +2,13 @@
 
 void drawHUD();
 
+Clock benchmark;
+
 void Engine::draw(float elapsedTime) {
+  // These are both for benchmark tests
+  bool benchmarkTesting = false;
+  Vector3f avg;
+
   m_window.clear();
 
   // We want to make sure that we are using the proper sprites for our character
@@ -10,12 +16,19 @@ void Engine::draw(float elapsedTime) {
   string healthTexture = (m_isHuman) ? m_human.getHealthTexturePath() : m_demon.getHealthTexturePath();
 
   /***** BACKGROUND VIEW *****/
+  if (benchmarkTesting)
+    benchmark.restart();
+
   m_window.setView(m_BGView);
   m_window.draw(m_currentLevel.getBackground());
 
   /***** END BACKGROUND VIEW *****/
+  if (benchmarkTesting)
+    avg.x = benchmark.restart().asSeconds();
 
   /***** MAIN VIEW *****/
+  if (benchmarkTesting)
+    benchmark.restart();
   // We want to have a dynamic camera in case our levels are big
   /*
   The reason this is such a clown fiesta is because we want to be able to give
@@ -97,7 +110,7 @@ void Engine::draw(float elapsedTime) {
     if (m_timeSinceSwitch < .5f) {
       m_blackout.setColor(Color(0, 0, 0, m_opacity += (255 - m_opacity) * 4 * elapsedTime));
     }
-    cout << m_demon.getWingIndex() << endl;
+    //cout << m_demon.getWingIndex() << endl;
     m_demon.updateWings(elapsedTime);
     m_blackout.setPosition(m_human.getCenter());
     m_window.draw(m_blackout);
@@ -123,8 +136,13 @@ void Engine::draw(float elapsedTime) {
   }
   */
   /***** END MAIN VIEW *****/
+  if (benchmarkTesting)
+    avg.y = benchmark.restart().asSeconds();
 
   /***** HUD VIEW *****/
+  if (benchmarkTesting)
+    benchmark.restart();
+
   m_window.setView(m_HUDView);
   m_window.draw(m_healthBorder);
   // Again, human isn't used for any particular reason, as both should always be in sync
@@ -140,6 +158,9 @@ void Engine::draw(float elapsedTime) {
   m_window.draw(m_scoreText);
 
   /***** END HUD VIEW *****/
+  if (benchmarkTesting)
+    avg.z = benchmark.restart().asSeconds();
+
 
   if (m_menuActive) {
     /***** MENU VIEW *****/
@@ -153,4 +174,16 @@ void Engine::draw(float elapsedTime) {
   /***** END MENU VIEW *****/
 
   m_window.display();
+
+  if (benchmarkTesting)
+    cout << avg.x << " " << avg.y << " " << avg.z << endl;
+  /*
+  Benchmark results:
+  Human:
+    Background draw time: .00005 - .0001s
+    Main draw time: .0021 - .0056s
+    HUD draw time: .0024 - .0064s
+
+  */
+
 }
