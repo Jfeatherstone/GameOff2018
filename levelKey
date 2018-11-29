@@ -1,0 +1,33 @@
+a - Air block
+b - Solid block
+c - Solid block
+d - Down doorway **
+e - Solid block
+f - Hazard
+g - Solid block
+h - Solid block
+i - In doorway **
+j - Hazard
+k - Demon only solid block
+l - Left doorway **
+m - Human only solid block
+n -
+o - Out doorway **
+p -
+q -
+r - Right doorway **
+s -
+t -
+u - Up doorway **
+v -
+w -
+x -
+y -
+z - Solid block (clear)
+1 - Human coin (Air)
+2 - Demon coin (Air)
+
+This file explains the conventions for creating levels which can be properly read
+in by the game
+
+Letter assignments:

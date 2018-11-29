@@ -120,7 +120,7 @@ void Level::detectCollision(PlayableCharacter &character) {
   }
 
   // These are the blocks that will stop a player
-  vector<char> solidBlocks = {'b', 'c', 'g', 'h', 'e', 'i', 'z'};
+  vector<char> solidBlocks = {'b', 'c', 'g', 'h', 'e', 'z'};
   vector<char> hazardBlocks = {'f', 'j'};
 
   bool onGround = false;
@@ -158,6 +158,7 @@ void Level::detectCollision(PlayableCharacter &character) {
         continue;
       }
 
+      /****** SOLID BLOCKS ******/
       // We don't detect any other collisions with 'a', so we can skip the rest
       if (m_levelArray[y][x] == 'a')
         continue;
@@ -214,6 +215,100 @@ void Level::detectCollision(PlayableCharacter &character) {
         if (character.canFly())
           character.takeDamage(1);
         continue;
+      }
+
+      // Human only solid block
+      // Check for collision with feet
+      if (!character.canFly()) {
+        if (m_levelArray[y][x] == 'm'
+        && character.getLeftArmHitbox().intersects(block)
+        && character.getVelocity().x < 0) {
+          // Stop the player in the x direction only
+          character.setVelocity(Vector2f(0, character.getVelocity().y));
+          //cout << "Stopped left" << endl;
+          continue;
+        }
+
+        if (m_levelArray[y][x] == 'm'
+        && character.getRightArmHitbox().intersects(block)
+        && character.getVelocity().x > 0) {
+          // Stop the player in the x direction only
+          character.setVelocity(Vector2f(0, character.getVelocity().y));
+          //cout << "Stopped right" << endl;
+          continue;
+        }
+
+        if (m_levelArray[y][x] == 'm'
+        && character.getFeetHitbox().intersects(block)
+        && character.getVelocity().y >= 0) {
+          // Stop the player in the y direction only
+          character.setVelocity(Vector2f(character.getVelocity().x, 0));
+          // Also indicate that they are no longer in the air
+          character.setInAir(false);
+          character.setJumping(false);
+          character.setFalling(false);
+          character.setPosition(Vector2f(character.getCenter().x, block.top - 1*block.height));
+          onGround = true;
+          continue;
+        }
+
+        if (m_levelArray[y][x] == 'm'
+        && character.getHeadHitbox().intersects(block)
+        && character.getVelocity().y <= 0) {
+          // Stop the player in the y direction only
+          character.setVelocity(Vector2f(character.getVelocity().x, 0));
+          // Also indicate that they are no longer in the air
+          character.setJumping(false);
+          character.setFalling(true);
+          continue;
+        }
+      }
+
+      // Demon only solid block
+      // For these blocks, the demon won't take damage if they touch them
+      if (character.canFly()) {
+        if (m_levelArray[y][x] == 'k'
+        && character.getLeftArmHitbox().intersects(block)
+        && character.getVelocity().x < 0) {
+          // Stop the player in the x direction only
+          character.setVelocity(Vector2f(0, character.getVelocity().y));
+          //cout << "Stopped left" << endl;
+          continue;
+        }
+
+        if (m_levelArray[y][x] == 'k'
+        && character.getRightArmHitbox().intersects(block)
+        && character.getVelocity().x > 0) {
+          // Stop the player in the x direction only
+          character.setVelocity(Vector2f(0, character.getVelocity().y));
+          //cout << "Stopped right" << endl;
+          continue;
+        }
+
+        if (m_levelArray[y][x] == 'k'
+        && character.getFeetHitbox().intersects(block)
+        && character.getVelocity().y >= 0) {
+          // Stop the player in the y direction only
+          character.setVelocity(Vector2f(character.getVelocity().x, 0));
+          // Also indicate that they are no longer in the air
+          character.setInAir(false);
+          character.setJumping(false);
+          character.setFalling(false);
+          character.setPosition(Vector2f(character.getCenter().x, block.top - 1*block.height));
+          onGround = true;
+          continue;
+        }
+
+        if (m_levelArray[y][x] == 'k'
+        && character.getHeadHitbox().intersects(block)
+        && character.getVelocity().y <= 0) {
+          // Stop the player in the y direction only
+          character.setVelocity(Vector2f(character.getVelocity().x, 0));
+          // Also indicate that they are no longer in the air
+          character.setJumping(false);
+          character.setFalling(true);
+          continue;
+        }
       }
 
       // Now that we're done with collisions of solid blocks, we can continue

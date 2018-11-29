@@ -25,7 +25,7 @@ Demon::Demon() {
   m_rightWing.setOrigin(0, -wingSize.y / 2 + 6);
   m_leftWing.setOrigin(wingSize.x, -wingSize.y / 2 + 6);
   m_wingIndex++;
-  m_wingSpeed = 6;
+  m_wingSpeed = 3;
 }
 
 bool Demon::handleInput(float elapsedTime) {
