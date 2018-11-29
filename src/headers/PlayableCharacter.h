@@ -35,7 +35,7 @@ protected:
   Sprite m_rightWing;
 
   int m_wingIndex;
-
+  int m_wingSpeed;
   Vector2f wingSize;
   // We will also have two different health bars for each character, one of
   // them will be dark and the other light. I'm not sure if there will be
@@ -88,6 +88,7 @@ public:
   bool virtual handleInput(float elapsedTime) = 0;
 
   void update(float elapsedTime);
+  void updateWings(float elapsedTime);
   void spawn(Vector2f position);
 
   // Some basic getters
@@ -114,6 +115,10 @@ public:
   void setScore(int score);
   int getScore();
   void incrementScore(int increment);
+  void setWingIndex(int index);
+  int getWingIndex();
+  int getWingSpeed();
+
 
   // Hitbox stuff
   FloatRect getFeetHitbox();

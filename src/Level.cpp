@@ -172,7 +172,7 @@ void Level::detectCollision(PlayableCharacter &character) {
         character.setInAir(false);
         character.setJumping(false);
         character.setFalling(false);
-        character.setPosition(Vector2f(character.getCenter().x - detectionZone.width / 2, block.top - 1*block.height));
+        character.setPosition(Vector2f(character.getCenter().x, block.top - 1*block.height));
         onGround = true;
         // If we are the demon, we also want to subtract health
         if (character.canFly())

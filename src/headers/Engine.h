@@ -50,6 +50,14 @@ private:
   Sprite m_health[4];
   Sprite m_healthBorder;
 
+  // To block out the background while we transform
+  Sprite m_blackout;
+  bool transition;
+  int m_opacity = 0;
+  int m_maxOpacity = 0;
+  int m_minOpacity = 180;
+  int m_wingIncrement;
+  int m_maxWingIndex;
   // There has to be some cooldown for switching characters
   float m_playerSwitchCooldown = 2;
   // And a tracker for how long it's been
@@ -65,7 +73,7 @@ private:
   Text m_messageText;
   Text m_scoreText;
   Text m_finalScoreText;
-  
+
   // This font has to be defined here because the font must be around as long
   // as the text is being displayed
   Font font;
@@ -91,7 +99,7 @@ private:
   // Our abstracted functions
   // These are defined in their own files according to their name
   void input(float elapsedTime);
-  void draw();
+  void draw(float elapsedTime);
   void update(float elapsedTime);
   // This function, not to be confused with loadLevel, loads all levels in the
   // levels/ folder, and initializes a few variables above

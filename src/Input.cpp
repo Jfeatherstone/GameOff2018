@@ -2,6 +2,8 @@
 
 void Engine::input(float elapsedTime) {
 
+  //cout << Joystick::isConnected(0) << endl;
+
   // Accessing the menu
   if (Keyboard::isKeyPressed(Keyboard::Escape) && m_timeSincePause > .5) {
     m_timeSincePause = 0;
