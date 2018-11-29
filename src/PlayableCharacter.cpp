@@ -40,23 +40,10 @@ void PlayableCharacter::update(float elapsedTime) {
   FloatRect r = getPosition();
 
   // If we are the demon, we want to align our wings as well
-  if (m_canFly) {
-    // Go to the next frame if we are flying
-    if (m_inAir) {
-      int wingSpeed = 7;
-      if (m_wingIndex % wingSpeed == 0) {
-        m_rightWing.setTextureRect(IntRect(0, m_wingIndex / wingSpeed * wingSize.y, wingSize.x, wingSize.y));
-        m_leftWing.setTextureRect(IntRect(0, m_wingIndex / wingSpeed * wingSize.y, wingSize.x, wingSize.y));
-      }
-      m_wingIndex++;
-      if (m_wingIndex >= wingSpeed * 14)
-        m_wingIndex = 0;
-    }
-    // And then attach the wings at the right spot
-    m_rightWing.setPosition(r.left + r.width - 5, r.top - 7);
-    m_leftWing.setPosition(r.left + 5 - 2 * r.width, r.top - 7);
-  }
-
+  updateWings(elapsedTime);
+  m_wingIndex++;
+  if (m_wingIndex >= m_wingSpeed * 14)
+    m_wingIndex = 0;
   // We now want to update our hitboxes
   // The extra numbers are to provide a slight padding on the sprite
   //if (!m_canFly) {
@@ -110,6 +97,23 @@ void PlayableCharacter::update(float elapsedTime) {
   }*/
 }
 
+void PlayableCharacter::updateWings(float elapsedTime) {
+  FloatRect r = getPosition();
+  if (m_canFly) {
+    // Go to the next frame if we are flying
+    if (m_inAir) {
+      if (m_wingIndex % m_wingSpeed == 0) {
+        m_rightWing.setTextureRect(IntRect(0, m_wingIndex / m_wingSpeed * wingSize.y, wingSize.x, wingSize.y));
+        m_leftWing.setTextureRect(IntRect(0, m_wingIndex / m_wingSpeed * wingSize.y, wingSize.x, wingSize.y));
+      }
+      //m_wingIndex++;
+    }
+    // And then attach the wings at the right spot
+    m_rightWing.setPosition(r.left + r.width - 5, r.top - 7);
+    m_leftWing.setPosition(r.left + 5 - 2 * r.width, r.top - 7);
+  }
+}
+
 string PlayableCharacter::getHealthTexturePath() {
   return m_healthTexturePath;
 }
@@ -139,6 +143,10 @@ void PlayableCharacter::setPosition(Vector2f position) {
 void PlayableCharacter::setVelocity(Vector2f velocity) {
   m_velocity.x = velocity.x;
   m_velocity.y = velocity.y;
+}
+
+int PlayableCharacter::getWingSpeed() {
+  return m_wingSpeed;
 }
 
 Vector2f PlayableCharacter::getVelocity() {
@@ -190,12 +198,21 @@ bool PlayableCharacter::canFly() {
 }
 
 Vector2f PlayableCharacter::getCenter() {
-  return Vector2f(m_position.x + getPosition().width / 2, m_position.y + getPosition().height / 2);
+  return Vector2f(m_position.x, m_position.y);
 }
 
 void PlayableCharacter::setHealth(int health) {
   m_health = health;
 }
+
+void PlayableCharacter::setWingIndex(int index) {
+  m_wingIndex = index;
+}
+
+int PlayableCharacter::getWingIndex() {
+  return m_wingIndex;
+}
+
 
 void PlayableCharacter::takeDamage(int amount) {
   if (m_timeSinceDamage > m_damageCooldown) {

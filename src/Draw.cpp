@@ -2,7 +2,7 @@
 
 void drawHUD();
 
-void Engine::draw() {
+void Engine::draw(float elapsedTime) {
   m_window.clear();
 
   // We want to make sure that we are using the proper sprites for our character
@@ -66,7 +66,7 @@ void Engine::draw() {
    &TextureHolder::getTexture(m_currentLevel.getTileSheetPath()));
   m_window.draw(currentChar);
   // Draw our wings if we are the demon
-  if (!m_isHuman) {
+  if (!m_isHuman && !transition) {
     m_window.draw(m_demon.getLeftWing());
     m_window.draw(m_demon.getRightWing());
   }
@@ -86,7 +86,27 @@ void Engine::draw() {
       coin.setPosition(element.x * Level::TILE_SIZE, element.y * Level::TILE_SIZE);
       m_window.draw(coin);
     }
-}
+  }
+
+  // If we are transitioning, we want to fade out the screen
+  if (transition) {
+    //cout << m_timeSinceSwitch << endl;
+    if (m_timeSinceSwitch > .5f) {
+      m_blackout.setColor(Color(0, 0, 0, m_opacity -= (m_opacity) * 4 * elapsedTime));
+    }
+    if (m_timeSinceSwitch < .5f) {
+      m_blackout.setColor(Color(0, 0, 0, m_opacity += (255 - m_opacity) * 4 * elapsedTime));
+    }
+    cout << m_demon.getWingIndex() << endl;
+    m_demon.updateWings(elapsedTime);
+    m_blackout.setPosition(m_human.getCenter());
+    m_window.draw(m_blackout);
+    m_window.draw(m_demon.getLeftWing());
+    m_window.draw(m_demon.getRightWing());
+    if (m_demon.getWingIndex() != m_maxWingIndex)
+      m_demon.setWingIndex(m_demon.getWingIndex() + m_wingIncrement);
+
+  }
 
   // For debugging our hitboxes
   /*

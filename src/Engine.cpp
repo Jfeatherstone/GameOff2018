@@ -63,6 +63,11 @@ Engine::Engine() {
   loadLevels();
   m_currentLevel = m_levels.getOrigin();
 
+  // We want to set up the blackout layer here
+  m_blackout.setTexture(TextureHolder::getTexture("graphics/blackout.png"));
+  m_blackout.setColor(Color(0, 0, 0, 128));
+  m_blackout.setOrigin(m_blackout.getLocalBounds().width / 2, m_blackout.getLocalBounds().height / 2);
+
   // We now update the player's location
   Vector2f newPosition = m_currentLevel.getStartingLocation(Direction::START);
   // We want to spawn both characters, even if we are only playing one
@@ -127,7 +132,7 @@ void Engine::run() {
 
     input(dt.asSeconds());
     update(dt.asSeconds());
-    draw();
+    draw(dt.asSeconds());
   }
 }
 
