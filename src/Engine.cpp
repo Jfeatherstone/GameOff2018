@@ -20,7 +20,7 @@ Engine::Engine() {
   m_windowSize.x = resolution.x;
   m_windowSize.y = resolution.y;
 
-  m_window.create(VideoMode(resolution.x, resolution.y), "Github Game Off 2018", Style::Default);
+  m_window.create(VideoMode(resolution.x, resolution.y), "Keith", Style::Default);
 
   // This should limit the framerate and provide more stable animations
   m_window.setFramerateLimit(60);
