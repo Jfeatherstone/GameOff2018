@@ -31,7 +31,12 @@ protected:
 
   // Our sprite, which will be different for the two characters
   Sprite m_characterSprite;
+  Sprite m_leftWing;
+  Sprite m_rightWing;
 
+  int m_wingIndex;
+
+  Vector2f wingSize;
   // We will also have two different health bars for each character, one of
   // them will be dark and the other light. I'm not sure if there will be
   // a functional difference yet, maybe certain attacks don't damage each one
@@ -63,8 +68,6 @@ protected:
   FloatRect m_feetHitbox;
   FloatRect m_leftArmHitbox;
   FloatRect m_rightArmHitbox;
-  FloatRect m_leftWingHitbox;
-  FloatRect m_rightWingHitbox;
 
   // Our character's location
   Vector2f m_position;
@@ -89,6 +92,9 @@ public:
 
   // Some basic getters
   Sprite getSprite();
+  Sprite getLeftWing();
+  Sprite getRightWing();
+
   int getHealth();
   string getHealthTexturePath();
   void setPosition(Vector2f position);
@@ -108,7 +114,6 @@ public:
   void setScore(int score);
   int getScore();
   void incrementScore(int increment);
-
 
   // Hitbox stuff
   FloatRect getFeetHitbox();

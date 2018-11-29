@@ -37,10 +37,29 @@ void PlayableCharacter::update(float elapsedTime) {
   //cout << m_velocity.x << " " << m_velocity.y << endl;
   m_characterSprite.setPosition(m_position);
 
-  // We now want to update our hitboxes
   FloatRect r = getPosition();
+
+  // If we are the demon, we want to align our wings as well
+  if (m_canFly) {
+    // Go to the next frame if we are flying
+    if (m_inAir) {
+      int wingSpeed = 7;
+      if (m_wingIndex % wingSpeed == 0) {
+        m_rightWing.setTextureRect(IntRect(0, m_wingIndex / wingSpeed * wingSize.y, wingSize.x, wingSize.y));
+        m_leftWing.setTextureRect(IntRect(0, m_wingIndex / wingSpeed * wingSize.y, wingSize.x, wingSize.y));
+      }
+      m_wingIndex++;
+      if (m_wingIndex >= wingSpeed * 14)
+        m_wingIndex = 0;
+    }
+    // And then attach the wings at the right spot
+    m_rightWing.setPosition(r.left + r.width - 5, r.top - 7);
+    m_leftWing.setPosition(r.left + 5 - 2 * r.width, r.top - 7);
+  }
+
+  // We now want to update our hitboxes
   // The extra numbers are to provide a slight padding on the sprite
-  if (!m_canFly) {
+  //if (!m_canFly) {
     m_feetHitbox.left = r.left + 7;
     m_feetHitbox.width = r.width - 14;
     m_feetHitbox.top = r.top + r.height - 4;
@@ -60,7 +79,7 @@ void PlayableCharacter::update(float elapsedTime) {
     m_rightArmHitbox.width = 1;
     m_rightArmHitbox.top = r.top + 28;
     m_rightArmHitbox.height = 36;
-  } else {
+  /*} else {
     // For the demon, we will load in a sprite of just the wing to do some calculations
 
     Texture wingTexture = TextureHolder::getTexture("graphics/demon_wing.png");
@@ -88,7 +107,7 @@ void PlayableCharacter::update(float elapsedTime) {
     m_rightArmHitbox.top = r.top + 28;
     m_rightArmHitbox.height = 36;
 
-  }
+  }*/
 }
 
 string PlayableCharacter::getHealthTexturePath() {
@@ -101,6 +120,14 @@ int PlayableCharacter::getHealth() {
 
 Sprite PlayableCharacter::getSprite() {
   return m_characterSprite;
+}
+
+Sprite PlayableCharacter::getLeftWing() {
+  return m_leftWing;
+}
+
+Sprite PlayableCharacter::getRightWing() {
+  return m_rightWing;
 }
 
 void PlayableCharacter::setPosition(Vector2f position) {

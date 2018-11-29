@@ -5,10 +5,26 @@ Demon::Demon() {
   m_name = "Demon";
   m_healthTexturePath = "graphics/demon_health.png";
   m_characterSprite.setTexture(TextureHolder::getTexture("graphics/demon.png"));
+  m_rightWing.setTexture(TextureHolder::getTexture("graphics/demon_wing.png"));
+  m_leftWing.setTexture(TextureHolder::getTexture("graphics/demon_wing.png"));
+  m_leftWing.setScale(-1, 1); // We flip the left wing so we can use the same image for both
+
   m_canFly = true;
   m_startingVelocity = 350;
   m_terminalVelocity = 800;
   m_jumpDuration = .55f;
+
+  // We now have to set up the wings
+  // We will set them up as a sprite sheet so they can be animated
+  wingSize.x = 53;
+  wingSize.y = 40;
+  m_rightWing.setTextureRect(IntRect(0, 0, wingSize.x, wingSize.y));
+  m_leftWing.setTextureRect(IntRect(0, 0, wingSize.x, wingSize.y));
+  // We set the origin at the top right corner to easily move the wings in
+  // relation to the character model
+  m_rightWing.setOrigin(0, -wingSize.y / 2 + 6);
+  m_leftWing.setOrigin(wingSize.x, -wingSize.y / 2 + 6);
+  m_wingIndex++;
 }
 
 bool Demon::handleInput(float elapsedTime) {

@@ -65,6 +65,12 @@ void Engine::draw() {
   m_window.draw(m_currentLevel.getVertexArray(),
    &TextureHolder::getTexture(m_currentLevel.getTileSheetPath()));
   m_window.draw(currentChar);
+  // Draw our wings if we are the demon
+  if (!m_isHuman) {
+    m_window.draw(m_demon.getLeftWing());
+    m_window.draw(m_demon.getRightWing());
+  }
+
   // We also want to draw our coins here too
   if (m_isHuman) {
     for (auto element: m_currentLevel.getLightCoins()) {
