@@ -4,4 +4,4 @@
 g++ -std=c++17 -o Main src/*.cpp -lsfml-system -lsfml-window -lsfml-graphics -lstdc++fs
 
 # Next up we should zip up the resources and executable
-zip -r $"Linux$1.zip" fonts graphics levels Main
+zip -r Export/$"Linux$1.zip" fonts graphics levels Main
