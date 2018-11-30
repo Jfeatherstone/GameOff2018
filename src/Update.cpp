@@ -36,6 +36,9 @@ void Engine::update(float elapsedTime) {
         // This should only be here while creating and testing levels
         //loadLevels();
 
+        // First, we want to save the changes to the level we are in (coins gotten)
+        m_levels.addAt(m_currentLevel, m_currentLevel.getMapLocation());
+
         // We set the player location, update the current level
         //cout << "New Level" << endl;
         m_currentLevel = m_levels.get(m_human.getDirectionToMove());

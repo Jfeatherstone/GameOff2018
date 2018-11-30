@@ -141,7 +141,9 @@ void Level::detectCollision(PlayableCharacter &character) {
         // We want to remove the coin from this list and increase the player's
         // score
         character.incrementScore(1);
+        //cout << m_darkCoins.size() << endl;
         m_darkCoins.remove(Vector2f(x, y));
+        //cout << m_darkCoins.size() << endl;
         continue;
       }
 

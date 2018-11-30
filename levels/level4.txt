@@ -1,5 +1,5 @@
 start_location=right, 50, 200
-start_location=out, 3050, 200
+start_location=out, 2980, 240
 location=3 0 0
 background=graphics/castle_background.png
 tile_sheet=graphics/tile_sheet_castle.png
