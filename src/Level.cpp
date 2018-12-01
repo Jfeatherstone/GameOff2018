@@ -141,6 +141,10 @@ void Level::detectCollision(PlayableCharacter &character) {
         // We want to remove the coin from this list and increase the player's
         // score
         character.incrementScore(1);
+        // If the player has gotten 10 coins, they regen one health
+        if (character.getScore() % 10 == 0) {
+          character.incrementHealth(1);
+        }
         //cout << m_darkCoins.size() << endl;
         m_darkCoins.remove(Vector2f(x, y));
         //cout << m_darkCoins.size() << endl;
@@ -156,6 +160,9 @@ void Level::detectCollision(PlayableCharacter &character) {
         // We want to remove the coin from this list and increase the player's
         // score
         character.incrementScore(1);
+        if (character.getScore() % 10 == 0) {
+          character.incrementHealth(1);
+        }
         m_lightCoins.remove(Vector2f(x, y));
         continue;
       }
