@@ -168,6 +168,8 @@ void Engine::run() {
     avg.y += benchmark.restart().asSeconds();
     draw(dt.asSeconds());
     avg.z += benchmark.restart().asSeconds();
+    sf::Event event;
+    while (m_window.pollEvent(event)) {} // You need an event loop to avoid unreponsive window
 
     // The framerate
     //cout << 1 / dt.asSeconds() << endl;
