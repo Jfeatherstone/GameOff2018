@@ -86,11 +86,15 @@ Engine::Engine() {
   m_messageText.setFont(font);
   m_scoreText.setFont(font);
   m_finalScoreText.setFont(font);
+  m_controlsText1.setFont(font);
+  m_controlsText2.setFont(font);
 
   m_resumeText.setString("Resume");
   m_exitText.setString("Exit");
   m_resetText.setString("Reset");
   m_messageText.setString("Paused!");
+  m_controlsText1.setString("A - Left, D - Right");
+  m_controlsText2.setString("W - Jump, E - Switch Character");
 
   FloatRect rect = m_resumeText.getLocalBounds();
   m_resumeText.setOrigin(rect.left + rect.width / 2, rect.top + rect.height / 2);
@@ -122,6 +126,17 @@ Engine::Engine() {
   m_scoreText.setPosition(1 * m_windowSize.x / 6, 25);
   m_scoreText.setCharacterSize(45);
   m_scoreText.setFillColor(Color::White);
+
+  rect = m_controlsText1.getLocalBounds();
+  m_controlsText1.setOrigin(rect.left + rect.width / 2, rect.top + rect.height / 2);
+  m_controlsText1.setPosition(m_windowSize.x / 2, 400);
+  m_controlsText1.setFillColor(Color::Blue);
+
+  rect = m_controlsText2.getLocalBounds();
+  m_controlsText2.setOrigin(rect.left + rect.width / 2, rect.top + rect.height / 2);
+  m_controlsText2.setPosition(m_windowSize.x / 2, 450);
+  m_controlsText2.setFillColor(Color::Blue);
+
 }
 
 void Engine::run() {

@@ -76,6 +76,8 @@ private:
   Text m_messageText;
   Text m_scoreText;
   Text m_finalScoreText;
+  Text m_controlsText1;
+  Text m_controlsText2;
 
   // This font has to be defined here because the font must be around as long
   // as the text is being displayed
