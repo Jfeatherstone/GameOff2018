@@ -75,6 +75,9 @@ void Engine::input(float elapsedTime) {
             m_human.setScore(0);
             m_demon.setScore(0);
 
+            // Reset the coins
+            loadLevels();
+
             if (m_messageText.getString() == "You died!") {
               m_messageText.setString("Paused");
               FloatRect rect = m_messageText.getLocalBounds();

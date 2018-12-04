@@ -10,7 +10,7 @@ void Engine::draw(float elapsedTime) {
   Vector3f avg;
 
   m_window.clear();
-
+  
   // We want to make sure that we are using the proper sprites for our character
   Sprite currentChar = (m_isHuman) ? m_human.getSprite() : m_demon.getSprite();
   string healthTexture = (m_isHuman) ? m_human.getHealthTexturePath() : m_demon.getHealthTexturePath();

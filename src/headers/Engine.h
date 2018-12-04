@@ -56,8 +56,11 @@ private:
   int m_opacity = 0;
   int m_maxOpacity = 0;
   int m_minOpacity = 180;
+
+  // To control the wing animation during transitions
   int m_wingIncrement;
   int m_maxWingIndex;
+
   // There has to be some cooldown for switching characters
   float m_playerSwitchCooldown = 2;
   // And a tracker for how long it's been

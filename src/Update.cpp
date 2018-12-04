@@ -99,6 +99,8 @@ void Engine::update(float elapsedTime) {
 
         m_human.setScore(0);
         m_demon.setScore(0);
+        // Reset the coins
+        loadLevels();
       }
     }
 
